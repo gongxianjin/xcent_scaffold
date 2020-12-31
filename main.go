@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gongxianjin/xcent_scaffold/initialize"
 	"os"
 	"os/signal"
 	"syscall"
@@ -12,6 +13,7 @@ import (
 func main() {
 	lib.InitModule("./conf/dev/", []string{"base", "mysql", "redis"})
 	defer lib.Destroy()
+	initialize.MysqlTables()
 	router.HttpServerRun()
 
 	quit := make(chan os.Signal)

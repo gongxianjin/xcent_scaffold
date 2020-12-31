@@ -15,21 +15,6 @@ import (
 type ApiController struct {
 }
 
-func ApiRegister(router *gin.RouterGroup) {
-	curd := ApiController{}
-	router.POST("/login", curd.Login)
-	router.GET("/loginout", curd.LoginOut)
-}
-
-func ApiLoginRegister(router *gin.RouterGroup) {
-	curd := ApiController{}
-	router.GET("/user/listpage", curd.ListPage)
-	router.POST("/user/add", curd.AddUser)
-	router.POST("/user/edit", curd.EditUser)
-	router.POST("/user/remove", curd.RemoveUser)
-	router.POST("/user/batchremove", curd.RemoveUser)
-}
-
 func (demo *ApiController) Login(c *gin.Context) {
 	api := &dto.LoginInput{}
 	if err := api.BindingValidParams(c); err != nil {

@@ -89,7 +89,7 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 		middleware.RequestLog(),
 		middleware.TranslationMiddleware())
 	{
-		controller.ApiRegister(apiNormalGroup)
+		InitBaseRouter(apiNormalGroup)
 	}
 
 	//登陆接口
@@ -101,7 +101,7 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 		middleware.SessionAuthMiddleware(),
 		middleware.TranslationMiddleware())
 	{
-		controller.ApiLoginRegister(apiAuthGroup)
+		InitUserRouter(apiAuthGroup)
 	}
 	return router
 }
