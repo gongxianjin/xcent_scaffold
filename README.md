@@ -21,6 +21,17 @@ Gin best practices, gin development scaffolding, too late to explain, get on the
 4. 封装了 log/redis/mysql/http.client 常用方法
 5. 支持swagger文档生成
 
+todo
+
+1. 路由独立出来
+2. sql 自动生成 
+
+3. 权限管理：基于jwt和casbin实现的权限管理 
+4. 文件上传下载：实现基于七牛云的文件上传操作（为了方便大家测试，我公开了自己的七牛测试号的各种重要token，恳请大家不要乱传东西）
+5. 分页封装：前端使用mixins封装分页，分页方法调用mixins即可
+6. api管理：不同用户可调用的api接口的权限不同。
+7. 富文本编辑器：MarkDown编辑器功能嵌入。
+
 项目地址：https://github.com/gongxianjin/xcent_scaffold
 ### 现在开始
 - 安装软件依赖
