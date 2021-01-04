@@ -34,3 +34,5 @@
 
 [casbin]
     model-path= './resource/rbac_model.conf'
+    driver_name = "mysql"
+    data_source_name = "xcent:123456@tcp(120.77.245.43:3306)/test?charset=utf8&parseTime=true&loc=Asia%2FChongqing"

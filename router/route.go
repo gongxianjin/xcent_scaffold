@@ -76,9 +76,10 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 
 	//demo
 	v1 := router.Group("/demo")
-	v1.Use(middleware.RecoveryMiddleware(), middleware.RequestLog(), middleware.IPAuthMiddleware(), middleware.TranslationMiddleware())
+	v1.Use(middleware.RecoveryMiddleware(), middleware.RequestLog(), middleware.IPAuthMiddleware(), middleware.TranslationMiddleware(),middleware.CasbinHandler())
 	{
 		controller.DemoRegister(v1)
+		InitCasbinRouter(v1)
 	}
 
 	//非登陆接口
