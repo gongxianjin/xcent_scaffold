@@ -23,6 +23,11 @@ Gin best practices, gin development scaffolding, too late to explain, get on the
 
 1. 路由独立出来
 2. sql 自动生成 
+3. casbin集成
+
+todo 
+4. jwt集成
+5. 用户管理,权限rbac集成
 
 todo
 3. 权限管理：基于jwt和casbin实现的权限管理中间件 
