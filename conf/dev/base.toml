@@ -31,3 +31,6 @@
     desc="This is a sample server celler server."
     host="127.0.0.1:8880"
     base_path=""
+
+[casbin]
+    model-path= './resource/rbac_model.conf'
