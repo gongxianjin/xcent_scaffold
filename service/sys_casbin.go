@@ -32,6 +32,7 @@ func UpdateCasbin(authorityId string, casbinInfos []request.CasbinInfo) error {
 		rules = append(rules, []string{cm.AuthorityId, cm.Path, cm.Method})
 	}
 	e := Casbin()
+	fmt.Println(rules)
 	success, _ := e.AddPolicies(rules)
 	if success == false {
 		return errors.New("存在相同api,添加失败,请联系管理员")

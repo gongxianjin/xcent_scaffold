@@ -74,13 +74,13 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	})
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	//demo
-	v1 := router.Group("/demo")
-	v1.Use(middleware.RecoveryMiddleware(), middleware.RequestLog(), middleware.IPAuthMiddleware(), middleware.TranslationMiddleware(),middleware.CasbinHandler())
-	{
-		controller.DemoRegister(v1)
-		InitCasbinRouter(v1)
-	}
+	////demo
+	//v1 := router.Group("/demo")
+	//v1.Use(middleware.RecoveryMiddleware(), middleware.RequestLog(), middleware.IPAuthMiddleware(), middleware.TranslationMiddleware(),middleware.CasbinHandler())
+	//{
+	//	controller.DemoRegister(v1)
+	//}
+
 
 	//非登陆接口
 	store := sessions.NewCookieStore([]byte("secret"))
@@ -104,5 +104,14 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	{
 		InitUserRouter(apiAuthGroup)
 	}
+
+
+	//demo
+	v1 := router.Group("/demo")
+	v1.Use(sessions.Sessions("mysession", store),middleware.RecoveryMiddleware(), middleware.RequestLog(), middleware.IPAuthMiddleware(), middleware.TranslationMiddleware(),middleware.SessionAuthMiddleware(),middleware.CasbinHandler())
+	{
+		controller.DemoRegister(v1)
+	}
+
 	return router
 }

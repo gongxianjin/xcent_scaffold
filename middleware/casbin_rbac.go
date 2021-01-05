@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"fmt"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gongxianjin/xcent_scaffold/service"
 )
@@ -20,7 +21,8 @@ func CasbinHandler() gin.HandlerFunc {
 		act := c.Request.Method
 		fmt.Println(act)
 		// 获取用户的角色
-		sub := "8888"
+		Session := sessions.Default(c)
+		sub := Session.Get("user_id")
 		e := service.Casbin()
 		// 判断策略中是否存在
 		success, err := e.Enforce(sub, obj, act)

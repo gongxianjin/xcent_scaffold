@@ -24,6 +24,7 @@ func (demo *ApiController) Login(c *gin.Context) {
 	if api.Username == "admin" && api.Password == "123456" {
 		session := sessions.Default(c)
 		session.Set("user", api.Username)
+		session.Set("user_id", "888")
 		session.Save()
 		middleware.ResponseSuccess(c, "")
 		return
@@ -35,6 +36,7 @@ func (demo *ApiController) Login(c *gin.Context) {
 func (demo *ApiController) LoginOut(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete("user")
+	session.Delete("user_id")
 	session.Save()
 	return
 }

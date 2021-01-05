@@ -28,10 +28,72 @@ definitions:
       trace_id:
         type: object
     type: object
+  request.CasbinInReceive:
+    properties:
+      authorityId:
+        type: string
+      casbinInfos:
+        items:
+          $ref: '#/definitions/request.CasbinInfo'
+        type: array
+    type: object
+  request.CasbinInfo:
+    properties:
+      method:
+        type: string
+      path:
+        type: string
+    type: object
 info:
   contact: {}
   license: {}
 paths:
+  /casbin/getPolicyPathByAuthorityId:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 权限id, 权限模型列表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CasbinInReceive'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取权限列表
+      tags:
+      - Casbin
+  /casbin/updateCasbin:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 权限id, 权限模型列表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CasbinInReceive'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新角色api权限
+      tags:
+      - Casbin
   /demo/bind:
     post:
       consumes:

@@ -11,7 +11,6 @@ require (
 	github.com/garyburd/redigo v1.6.2
 	github.com/gin-gonic/contrib v0.0.0-20201101042839-6a891bf89f19
 	github.com/gin-gonic/gin v1.6.3
-	github.com/go-kit/kit v0.8.0
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-sql-driver/mysql v1.5.0
@@ -20,6 +19,5 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
-	go.uber.org/zap v1.10.0
 	gopkg.in/go-playground/validator.v9 v9.31.0
 )
