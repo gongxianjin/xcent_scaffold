@@ -84,7 +84,7 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 
 	//非登陆接口
 	store := sessions.NewCookieStore([]byte("secret"))
-	apiNormalGroup := router.Group("/api")
+	apiNormalGroup := router.Group("")
 	apiNormalGroup.Use(sessions.Sessions("mysession", store),
 		middleware.RecoveryMiddleware(),
 		middleware.RequestLog(),
@@ -94,13 +94,11 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	}
 
 	//登陆接口
-	apiAuthGroup := router.Group("/api")
+	apiAuthGroup := router.Group("")
 	apiAuthGroup.Use(
 		sessions.Sessions("mysession", store),
 		middleware.RecoveryMiddleware(),
-		middleware.RequestLog(),
-		middleware.SessionAuthMiddleware(),
-		middleware.TranslationMiddleware())
+	)
 	{
 		InitUserRouter(apiAuthGroup)
 	}
