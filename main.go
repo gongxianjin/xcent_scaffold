@@ -14,6 +14,7 @@ func main() {
 	lib.InitModule("./conf/dev/", []string{"base", "mysql", "redis"})
 	defer lib.Destroy()
 	initialize.MysqlTables()
+	//initialize.InitMysqlData()
 	router.HttpServerRun()
 
 	quit := make(chan os.Signal)

@@ -10,6 +10,9 @@ import (
 func MysqlTables() {
 	lib.GORMDefaultPool.AutoMigrate(
 		model.SysApi{},
+		model.SysBaseMenuParameter{},
+		model.SysAuthority{},
+		model.SysBaseMenu{},
 		model.SysUser{},
 		)
 	log.Println("register table success")
