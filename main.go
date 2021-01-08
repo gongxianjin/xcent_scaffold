@@ -13,7 +13,7 @@ import (
 func main() {
 	lib.InitModule("./conf/dev/", []string{"base", "mysql", "redis"})
 	defer lib.Destroy()
-	initialize.MysqlTables()
+	initialize.MysqlTables(lib.GORMDefaultPool)
 	//initialize.InitMysqlData()
 	router.HttpServerRun()
 

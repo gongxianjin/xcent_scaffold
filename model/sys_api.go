@@ -9,3 +9,8 @@ type SysApi struct {
 	ApiGroup    string `json:"apiGroup" gorm:"comment:api组"`
 	Method      string `json:"method" gorm:"default:'POST'" gorm:"comment:方法"`
 }
+
+type User struct {
+	gorm.Model
+	Friends []User `gorm:"many2many:user_friends;foreignKey:Refer;"`
+}
