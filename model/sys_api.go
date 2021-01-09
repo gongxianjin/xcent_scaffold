@@ -12,5 +12,21 @@ type SysApi struct {
 
 type User struct {
 	gorm.Model
-	Friends []User `gorm:"many2many:user_friends;foreignKey:Refer;"`
+	Friends []*User `gorm:"many2many:user_friends;foreignKey:FriendID;"` 
 }
+
+type User_Friends struct{
+	FriendID int
+}
+
+// type Language struct {
+//   gorm.Model
+// 	Name string
+// 	UserRefer uint
+// }
+
+// type User struct {
+// 	gorm.Model
+// 	Languages []Language `gorm:"many2many:user_languages;foreignKey:Refer;joinForeignKey:UserReferID;References:UserRefer;JoinReferences:UserRefer"`
+// 	Refer    uint
+// }
