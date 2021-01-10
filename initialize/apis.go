@@ -79,7 +79,8 @@ var Apis = []model.SysApi{
 }
 func InitSysApi(db *gorm.DB) {
 	if db.Where("id IN (?)", []int{1, 67}).Find(&[]model.SysApi{}).RowsAffected == 2 {
-		log.Fatal("sys_apis表的初始数据已存在!")
+		log.Println("sys_apis表的初始数据已存在!")
+		return
 	}
 	db = db.Begin()
 	traceCtx := lib.NewTrace()

@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"log"
 	"github.com/gongxianjin/xcent_scaffold/model"
 	"github.com/gongxianjin/xcent-common/gorm"
@@ -13,8 +14,9 @@ func MysqlTables(db *gorm.DB) {
 		model.SysBaseMenuParameter{},
 		model.SysAuthority{},
 		model.Sys_Data_Authority_Id{},
-		model.SysBaseMenu{},
+		model.SysBaseMenus{},
 		model.SysUser{},
+		gormadapter.CasbinRule{},
 	)
 	log.Println("register table success")
 }
@@ -22,4 +24,10 @@ func MysqlTables(db *gorm.DB) {
 func InitMysqlData(db *gorm.DB) {
 	InitSysApi(db)
 	InitSysUser(db)
+	InitCasbinModel(db)
+	InitSysAuthority(db)
+	InitSysBaseMenus(db)
+	InitSysAuthorityMenus(db)
+	InitAuthorityMenu(db)
+	InitSysDataAuthorityId(db)
 }

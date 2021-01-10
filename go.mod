@@ -21,4 +21,5 @@ require (
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
 	gopkg.in/go-playground/validator.v9 v9.31.0
+	gorm.io/gorm v1.20.7
 )

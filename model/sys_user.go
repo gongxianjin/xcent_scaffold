@@ -2,11 +2,12 @@ package model
 
 import (
 	"github.com/satori/go.uuid"
-	"github.com/gongxianjin/xcent-common/gorm"
+	"gorm.io/gorm"
+	"time"
 )
 
 type SysUser struct {
-	MODEL gorm.Model
+	BaseModel
 	UUID        uuid.UUID    `json:"uuid" gorm:"comment:用户UUID"`
 	Username    string       `json:"user_name" gorm:"type:varchar(20);not null;comment:用户登录名"`
 	Password    string       `json:"-"  gorm:"size:255;not null;comment:用户登录密码"`
@@ -15,4 +16,11 @@ type SysUser struct {
 	HeaderImg   string       `json:"headerImg" gorm:"comment:用户头像"`
 	Authority   SysAuthority `json:"authority" gorm:"foreignKey:AuthorityId;references:AuthorityId;comment:用户角色"`
 	AuthorityId string       `json:"authorityId" gorm:"comment:用户角色ID"`
+}
+
+type BaseModel struct {
+	ID        uint `gorm:"primary_key"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 }
