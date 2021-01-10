@@ -10,23 +10,10 @@ type SysApi struct {
 	Method      string `json:"method" gorm:"default:'POST'" gorm:"comment:方法"`
 }
 
-type User struct {
-	gorm.Model
-	Friends []*User `gorm:"many2many:user_friends;foreignKey:FriendID;"` 
+
+
+type Test1 struct {
+	Id        int64     `json:"id" gorm:"primary_key"`
+	Name      string    `json:"name"` 
 }
 
-type User_Friends struct{
-	FriendID int
-}
-
-// type Language struct {
-//   gorm.Model
-// 	Name string
-// 	UserRefer uint
-// }
-
-// type User struct {
-// 	gorm.Model
-// 	Languages []Language `gorm:"many2many:user_languages;foreignKey:Refer;joinForeignKey:UserReferID;References:UserRefer;JoinReferences:UserRefer"`
-// 	Refer    uint
-// }
