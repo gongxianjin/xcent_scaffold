@@ -14,12 +14,11 @@ require (
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/gongxianjin/xcent-common v0.0.0-20201230081359-6f75ee6b9f15
 	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/pkg/errors v0.9.1
+	github.com/satori/go.uuid v1.2.0
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
 	gopkg.in/go-playground/validator.v9 v9.31.0
-	gorm.io/gorm v1.20.7
 )

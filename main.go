@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -14,8 +15,13 @@ import (
 func main() {
 	lib.InitModule("./conf/dev/", []string{"base", "mysql", "redis"})
 	defer lib.Destroy()
-	initialize.MysqlTables()
-	initialize.InitMysqlData()
+	//获取链接池
+	db, err := lib.GetGormPool("default")
+	if err != nil {
+		log.Fatal(err)
+	}
+	initialize.MysqlTables(db)
+	initialize.InitMysqlData(db)
 	router.HttpServerRun()
 
 	quit := make(chan os.Signal)

@@ -1,12 +1,12 @@
 package model
 
 import (
-	"github.com/gofrs/uuid"
+	"github.com/satori/go.uuid"
 	"github.com/gongxianjin/xcent-common/gorm"
 )
 
 type SysUser struct {
-	gorm.Model
+	MODEL gorm.Model
 	UUID        uuid.UUID    `json:"uuid" gorm:"comment:用户UUID"`
 	Username    string       `json:"user_name" gorm:"type:varchar(20);not null;comment:用户登录名"`
 	Password    string       `json:"-"  gorm:"size:255;not null;comment:用户登录密码"`

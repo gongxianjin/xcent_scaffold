@@ -10,10 +10,3 @@ type SysApi struct {
 	Method      string `json:"method" gorm:"default:'POST'" gorm:"comment:方法"`
 }
 
-
-
-type Test1 struct {
-	Id        int64     `json:"id" gorm:"primary_key"`
-	Name      string    `json:"name"` 
-}
-
