@@ -98,6 +98,7 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	apiAuthGroup.Use(
 		sessions.Sessions("mysession", store),
 		middleware.RecoveryMiddleware(),
+		middleware.JWTAuth(),
 	)
 	{
 		InitUserRouter(apiAuthGroup)

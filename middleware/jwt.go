@@ -23,11 +23,11 @@ func JWTAuth() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		// if service.IsBlacklist(token) { 
-		// 	ResponseError(c, InternalErrorCode, errors.New("您的帐户异地登陆或令牌失效"))
-		// 	c.Abort()
-		// 	return
-		// }
+		if service.IsBlacklist(token) {
+			ResponseError(c, InternalErrorCode, errors.New("您的帐户异地登陆或令牌失效"))
+			c.Abort()
+			return
+		}
 		j := NewJWT()
 		// parseToken 解析token包含的信息
 		claims, err := j.ParseToken(token)
