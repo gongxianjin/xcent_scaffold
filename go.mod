@@ -8,6 +8,7 @@ require (
 	github.com/casbin/casbin v1.9.1
 	github.com/casbin/casbin/v2 v2.19.8
 	github.com/casbin/gorm-adapter/v3 v3.0.4
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/garyburd/redigo v1.6.2
 	github.com/gin-gonic/contrib v0.0.0-20201101042839-6a891bf89f19
 	github.com/gin-gonic/gin v1.6.3
