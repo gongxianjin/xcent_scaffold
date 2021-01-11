@@ -2,6 +2,8 @@ package middleware
 
 import (
 	"errors"
+	"github.com/gongxianjin/xcent_scaffold/model"
+	"github.com/gongxianjin/xcent_scaffold/model/request"
 	"log"
 
 	"github.com/dgrijalva/jwt-go"
@@ -50,13 +52,13 @@ func JWTAuth() gin.HandlerFunc {
 			newClaims, _ := j.ParseToken(newToken)
 			c.Header("new-token", newToken)
 			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10)) 
-			useMultipoint := lib.GetStringConf("base.system.use-multipoint") 
+			useMultipoint := lib.GetBoolConf("base.system.use-multipoint")
 			if useMultipoint {
-				err, RedisJwtToken := servce.GetRedisJWT(newClaims.Username)
+				err, RedisJwtToken := service.GetRedisJWT(newClaims.Username)
 				if err != nil {
 					log.Fatal(err)
 				} else { // 当之前的取成功时才进行拉黑操作
-					// _ = service.JsonInBlacklist(model.JwtBlacklist{Jwt: RedisJwtToken})
+					_ = service.JsonInBlacklist(model.JwtBlacklist{Jwt: RedisJwtToken})
 				}
 				// 无论如何都要记录当前的活跃状态
 				_ = service.SetRedisJWT(newToken, newClaims.Username)

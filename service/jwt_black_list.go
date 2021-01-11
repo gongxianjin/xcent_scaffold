@@ -2,6 +2,9 @@ package service
 
 import (
 	"errors"
+	"github.com/garyburd/redigo/redis"
+	"github.com/gongxianjin/xcent_scaffold/model"
+	"log"
 	"time"
 
 	"github.com/gongxianjin/xcent-common/lib"
@@ -37,7 +40,13 @@ func IsBlacklist(jwt string) bool {
 //@return: err error, redisJWT string
 
 func GetRedisJWT(userName string) (err error, redisJWT string) {
-	redisJWT, err =  lib.ConfRedis.Get(userName).Result()
+	c, err := lib.RedisConnFactory("default")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer c.Close()
+	trace := lib.NewTrace()
+	redisJWT, err = redis.String(lib.RedisLogDo(trace, c, "GET", userName))
 	return err, redisJWT
 }
 
@@ -50,6 +59,12 @@ func GetRedisJWT(userName string) (err error, redisJWT string) {
 func SetRedisJWT(jwt string, userName string) (err error) {
 	// 此处过期时间等于jwt过期时间
 	timer := 60 * 60 * 24 * 7 * time.Second
-	err =  lib.ConfRedis.Set(userName, jwt, timer).Err()
+	c, err := lib.RedisConnFactory("default")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer c.Close()
+	trace := lib.NewTrace()
+	_,err = lib.RedisLogDo(trace, c, "SET", userName,jwt,timer)
 	return err
 }
