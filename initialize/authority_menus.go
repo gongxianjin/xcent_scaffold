@@ -1,14 +1,14 @@
 package initialize
 
 import (
-	"github.com/gongxianjin/xcent-common/gorm"
-	"github.com/gongxianjin/xcent-common/lib"
 	"log"
+
+	"github.com/gongxianjin/xcent-common/gorm"
 )
 
 type SysAuthorityMenus struct {
 	SysAuthorityAuthorityId string
-	SysBaseMenusId           uint
+	SysBaseMenusId          uint
 }
 
 var AuthorityMenus = []SysAuthorityMenus{
@@ -79,11 +79,13 @@ func InitSysAuthorityMenus(db *gorm.DB) {
 		return
 	}
 	db = db.Begin()
-	traceCtx := lib.NewTrace()
-	//设置trace信息
-	db = db.SetCtx(traceCtx)
-	for _,api := range AuthorityMenus {
-		if err := db.Debug().Save(&api).Error; err != nil { // 遇到错误时回滚事务
+	//去掉sys_data_authority_id中sys_authority_authority_id索引
+	if err := db.Exec("ALTER TABLE`sys_authority_menus` DROP INDEX `sys_authority_authority_id`;").Error; err != nil {
+		log.Println("删除索引sys_authority_authority_id失败!")
+		return
+	}
+	for _, api := range AuthorityMenus {
+		if err := db.Create(&api).Error; err != nil { // 遇到错误时回滚事务
 			db.Rollback()
 			log.Fatal(err)
 		}

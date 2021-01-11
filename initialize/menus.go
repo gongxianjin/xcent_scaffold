@@ -1,8 +1,7 @@
 package initialize
 
 import (
-	"github.com/gongxianjin/xcent-common/gorm"
-	"github.com/gongxianjin/xcent-common/lib"
+	"github.com/gongxianjin/xcent-common/gorm" 
 	"github.com/gongxianjin/xcent_scaffold/model"
 	"log"
 	"time"
@@ -50,9 +49,6 @@ func InitSysBaseMenus(db *gorm.DB) {
 		return
 	}
 	db = db.Begin()
-	traceCtx := lib.NewTrace()
-	//设置trace信息
-	db = db.SetCtx(traceCtx)
 	for _,api := range BaseMenus {
 		if err := db.Debug().Save(&api).Error; err != nil { // 遇到错误时回滚事务
 			db.Rollback()

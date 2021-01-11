@@ -1,8 +1,9 @@
 package initialize
 
 import (
-	"github.com/gongxianjin/xcent-common/gorm"
 	"log"
+
+	"github.com/gongxianjin/xcent-common/gorm"
 )
 
 func InitAuthorityMenu(db *gorm.DB) {
