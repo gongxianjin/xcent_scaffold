@@ -2,13 +2,14 @@ package service
 
 import (
 	"errors"
-	"github.com/garyburd/redigo/redis"
-	"github.com/gongxianjin/xcent_scaffold/model"
 	"log"
 	"time"
 
+	"github.com/garyburd/redigo/redis"
+	"github.com/gongxianjin/xcent_scaffold/model"
+
+	"github.com/gongxianjin/xcent-common/gorm"
 	"github.com/gongxianjin/xcent-common/lib"
-	"gorm.io/gorm"
 )
 
 //@author: [piexlmax](https://github.com/piexlmax)

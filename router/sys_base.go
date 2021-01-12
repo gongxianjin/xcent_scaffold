@@ -8,7 +8,7 @@ import (
 
 func InitBaseRouter(router *gin.RouterGroup) {
 	curd := controller.ApiController{}
-	BaseRouter := router.Group("/api").Use(
+	BaseRouter := router.Group("base").Use(
 		middleware.RequestLog(),
 		middleware.TranslationMiddleware())
 	{

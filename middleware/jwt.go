@@ -51,9 +51,8 @@ func JWTAuth() gin.HandlerFunc {
 			newToken, _ := j.CreateToken(*claims)
 			newClaims, _ := j.ParseToken(newToken)
 			c.Header("new-token", newToken)
-			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10)) 
-			useMultipoint := lib.GetBoolConf("base.system.use-multipoint")
-			if useMultipoint {
+			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10))  
+			if lib.GetBoolConf("base.system.use-multipoint") {
 				err, RedisJwtToken := service.GetRedisJWT(newClaims.Username)
 				if err != nil {
 					log.Fatal(err)

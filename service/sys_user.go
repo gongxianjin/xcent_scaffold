@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"log"
 
 	"github.com/gongxianjin/xcent-common/lib"
 	"github.com/gongxianjin/xcent_scaffold/model"
@@ -37,7 +38,9 @@ func Register(u model.SysUser) (err error, userInter model.SysUser) {
 
 func Login(u *model.SysUser) (err error, userInter *model.SysUser) {
 	var user model.SysUser
+	log.Printf("userPassword:%v",u.Password)
 	u.Password = utils.MD5V([]byte(u.Password))
+	log.Printf("md5UserPassword:%v",u.Password)
 	err = lib.GORMDefaultPool.Where("username = ? AND password = ?", u.Username, u.Password).Preload("Authority").First(&user).Error
 	return err, &user
 }

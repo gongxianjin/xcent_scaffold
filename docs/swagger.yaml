@@ -15,6 +15,16 @@ definitions:
     - name
     - passwd
     type: object
+  dto.LoginInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
   middleware.Response:
     properties:
       data:
@@ -48,6 +58,30 @@ info:
   contact: {}
   license: {}
 paths:
+  /base/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录
+      operationId: /base/login
+      parameters:
+      - description: body
+        in: body
+        name: polygon
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"登陆成功"}'
+          schema:
+            type: string
+      summary: 用户登录
+      tags:
+      - Base
+      - 用户
   /casbin/getPolicyPathByAuthorityId:
     post:
       consumes:
