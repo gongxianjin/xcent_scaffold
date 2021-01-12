@@ -81,7 +81,6 @@ paths:
       summary: 用户登录
       tags:
       - Base
-      - 用户
   /casbin/getPolicyPathByAuthorityId:
     post:
       consumes:

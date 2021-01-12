@@ -35,8 +35,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Base",
-                    "用户"
+                    "Base"
                 ],
                 "summary": "用户登录",
                 "operationId": "/base/login",

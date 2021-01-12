@@ -26,7 +26,6 @@ type ApiController struct {
 // @Tags Base
 // @Summary 用户登录
 // @Description 用户登录
-// @Tags 用户
 // @ID  /base/login
 // @Accept  json
 // @Produce  json
