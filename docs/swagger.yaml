@@ -38,6 +38,109 @@ definitions:
       trace_id:
         type: object
     type: object
+  model.SysAuthority:
+    properties:
+      authorityId:
+        type: string
+      authorityName:
+        type: string
+      children:
+        items:
+          $ref: '#/definitions/model.SysAuthority'
+        type: array
+      createdAt:
+        type: string
+      dataAuthorityId:
+        items:
+          $ref: '#/definitions/model.SysAuthority'
+        type: array
+      deletedAt:
+        type: string
+      menus:
+        items:
+          $ref: '#/definitions/model.SysBaseMenus'
+        type: array
+      parentId:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.SysBaseMenuParameter:
+    properties:
+      key:
+        type: string
+      sysBaseMenuID:
+        type: integer
+      type:
+        type: string
+      value:
+        type: string
+    type: object
+  model.SysBaseMenus:
+    properties:
+      authoritys:
+        items:
+          $ref: '#/definitions/model.SysAuthority'
+        type: array
+      children:
+        items:
+          $ref: '#/definitions/model.SysBaseMenus'
+        type: array
+      component:
+        type: string
+      createdAt:
+        type: string
+      defaultMenu:
+        type: boolean
+      hidden:
+        type: boolean
+      icon:
+        type: string
+      id:
+        type: integer
+      keepAlive:
+        type: boolean
+      name:
+        type: string
+      parameters:
+        items:
+          $ref: '#/definitions/model.SysBaseMenuParameter'
+        type: array
+      parentId:
+        type: string
+      path:
+        type: string
+      sort:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.SysUser:
+    properties:
+      authority:
+        $ref: '#/definitions/model.SysAuthority'
+        type: object
+      authorityId:
+        type: string
+      createdAt:
+        type: string
+      headerImg:
+        type: string
+      id:
+        type: integer
+      nickName:
+        type: string
+      phone:
+        type: string
+      updatedAt:
+        type: string
+      user_name:
+        type: string
+      uuid:
+        type: string
+    type: object
   request.CasbinInReceive:
     properties:
       authorityId:
@@ -58,6 +161,25 @@ info:
   contact: {}
   license: {}
 paths:
+  /Base/register:
+    post:
+      parameters:
+      - description: 用户名, 昵称, 密码, 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/model.SysUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"注册成功"}'
+          schema:
+            type: string
+      summary: 用户注册账号
+      tags:
+      - Base
   /base/login:
     post:
       consumes:

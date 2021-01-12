@@ -12,7 +12,8 @@ func InitBaseRouter(router *gin.RouterGroup) {
 		middleware.RequestLog(),
 		middleware.TranslationMiddleware())
 	{
-		BaseRouter.POST("/login", curd.Login)
-		BaseRouter.GET("/loginout", curd.LoginOut)
+		BaseRouter.POST("login", curd.Login)
+		BaseRouter.POST("register", curd.Register)
+		BaseRouter.GET("loginOut", curd.LoginOut)
 	}
 }

@@ -12,6 +12,7 @@ import (
 	"github.com/gongxianjin/xcent_scaffold/router"
 )
 
+
 func main() {
 	lib.InitModule("./conf/dev/", []string{"base", "mysql", "redis"})
 	defer lib.Destroy()
