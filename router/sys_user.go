@@ -9,7 +9,7 @@ import (
 func InitUserRouter(router *gin.RouterGroup) {
 	curd := controller.ApiController{}
 	user := controller.UserController{}
-	BaseRouter := router.Group("/api").Use(
+	BaseRouter := router.Group("").Use(
 		middleware.RequestLog(),
 		middleware.TranslationMiddleware())
 	{
@@ -17,7 +17,7 @@ func InitUserRouter(router *gin.RouterGroup) {
 		BaseRouter.POST("/user/edit", curd.EditUser)
 		BaseRouter.POST("/user/remove", curd.RemoveUser)
 		BaseRouter.POST("/user/batchremove", curd.RemoveUser)
-		
-		BaseRouter.GET("/user/listpage", user.ListPage)
+
+		BaseRouter.GET("/user/ListPage", user.ListPage)
 	}
 }

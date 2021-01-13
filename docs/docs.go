@@ -232,13 +232,16 @@ var doc = `{
                 "summary": "分页获取用户列表",
                 "parameters": [
                     {
-                        "description": "页码, 每页大小,",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.PageInfo"
-                        }
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页条数",
+                        "name": "pageSize",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -488,17 +491,6 @@ var doc = `{
                 },
                 "path": {
                     "type": "string"
-                }
-            }
-        },
-        "request.PageInfo": {
-            "type": "object",
-            "properties": {
-                "page": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
                 }
             }
         }

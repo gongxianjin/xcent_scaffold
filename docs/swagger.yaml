@@ -157,13 +157,6 @@ definitions:
       path:
         type: string
     type: object
-  request.PageInfo:
-    properties:
-      page:
-        type: integer
-      pageSize:
-        type: integer
-    type: object
 info:
   contact: {}
   license: {}
@@ -289,12 +282,14 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 页码, 每页大小,
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.PageInfo'
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 页条数
+        in: query
+        name: pageSize
+        type: integer
       produces:
       - application/json
       responses:

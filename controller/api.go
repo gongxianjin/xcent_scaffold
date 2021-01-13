@@ -2,10 +2,11 @@ package controller
 
 import (
 	"errors"
-	"github.com/gongxianjin/xcent_scaffold/utils"
 	"log"
 	"strings"
 	"time"
+
+	"github.com/gongxianjin/xcent_scaffold/utils"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/contrib/sessions"
@@ -117,7 +118,6 @@ func tokenNext(c *gin.Context, user model.SysUser) {
 	}
 }
 
-
 // @Tags Base
 // @Summary 用户注册账号
 // @Produce  application/json
@@ -134,13 +134,12 @@ func (demo *ApiController) Register(c *gin.Context) {
 	user := &model.SysUser{Username: R.Username, NickName: R.NickName, Password: R.Password, HeaderImg: R.HeaderImg, AuthorityId: R.AuthorityId}
 	err, userReturn := service.Register(*user)
 	if err != nil {
-		log.Fatalf("注册失败：%v",err)
+		log.Fatalf("注册失败：%v", err)
 		response.FailWithDetailed(response.SysUserResponse{User: userReturn}, "注册失败", c)
 	} else {
 		response.OkWithDetailed(response.SysUserResponse{User: userReturn}, "注册成功", c)
 	}
 }
-
 
 func (demo *ApiController) LoginOut(c *gin.Context) {
 	session := sessions.Default(c)

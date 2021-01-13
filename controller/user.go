@@ -22,8 +22,9 @@ type UserController struct {
 // @Summary 分页获取用户列表
 // @Security ApiKeyAuth
 // @accept application/json
-// @Produce application/json 
-// @Param data body request.PageInfo true "页码, 每页大小,"
+// @Produce application/json
+// @Param page query int false "页码" 
+// @Param pageSize query int false "页条数"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /user/ListPage [GET]
 func (demo *UserController) ListPage(c *gin.Context) {
@@ -50,7 +51,7 @@ func (demo *UserController) ListPage(c *gin.Context) {
 	// 	Total: total,
 	// }
 	//middleware.ResponseSuccess(c, m)
-	log.Fatalln("begin List");
+	log.Fatalln("begin List")
 	var pageInfo request.PageInfo
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err := utils.Verify(pageInfo, utils.PageInfoVerify); err != nil {
