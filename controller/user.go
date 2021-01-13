@@ -1,11 +1,17 @@
 package controller
 
-import ( 
-	"strings" 
-	"github.com/gin-gonic/gin" 
+import (
+	"strings"
+
+	"github.com/gin-gonic/gin"
 	"github.com/gongxianjin/xcent-common/lib"
-	"github.com/gongxianjin/xcent_scaffold/dao" 
-	"github.com/gongxianjin/xcent_scaffold/middleware" 
+	"github.com/gongxianjin/xcent_scaffold/dao"
+	"github.com/gongxianjin/xcent_scaffold/dto"
+	"github.com/gongxianjin/xcent_scaffold/middleware"
+	"github.com/gongxianjin/xcent_scaffold/model/request"
+	"github.com/gongxianjin/xcent_scaffold/model/response"
+	"github.com/gongxianjin/xcent_scaffold/service"
+	"github.com/gongxianjin/xcent_scaffold/utils"
 )
 
 type UserController struct {
@@ -20,14 +26,14 @@ type UserController struct {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /user/ListPage [post]
 func (demo *UserController) ListPage(c *gin.Context) {
-	listInput := &request.PageInfo{}
-	if err := listInput.BindingValidParams(c); err != nil {
-		middleware.ResponseError(c, 2001, err)
-		return
-	}
-	if listInput.pageSize == 0 {
-		listInput.pageSize = 10
-	}
+	// listInput :=  &dto.ListPageInput{}
+	// if err := listInput.BindingValidParams(c); err != nil {
+	// 	middleware.ResponseError(c, 2001, err)
+	// 	return
+	// }
+	// if listInput.pageSize == 0 {
+	// 	listInput.pageSize = 10
+	// }
 	// tx, err := lib.GetGormPool("default")
 	// if err != nil {
 	// 	middleware.ResponseError(c, 2002, err)
@@ -43,6 +49,13 @@ func (demo *UserController) ListPage(c *gin.Context) {
 	// 	Total: total,
 	// }
 	//middleware.ResponseSuccess(c, m) 
+	
+	var pageInfo request.PageInfo
+	_ = c.ShouldBindJSON(&pageInfo)
+	if err := utils.Verify(pageInfo, utils.PageInfoVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 	if err, list, total := service.GetUserInfoList(pageInfo); err != nil { 
 		response.FailWithMessage("获取失败", c)
 	} else {

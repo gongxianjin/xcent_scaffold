@@ -212,6 +212,44 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/user/ListPage": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "分页获取用户列表",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "polygon",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.PageInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -450,6 +488,17 @@ var doc = `{
                 },
                 "path": {
                     "type": "string"
+                }
+            }
+        },
+        "request.PageInfo": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
                 }
             }
         }
