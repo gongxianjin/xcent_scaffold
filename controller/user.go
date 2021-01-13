@@ -4,8 +4,7 @@ import (
 	"strings" 
 	"github.com/gin-gonic/gin" 
 	"github.com/gongxianjin/xcent-common/lib"
-	"github.com/gongxianjin/xcent_scaffold/dao"
-	"github.com/gongxianjin/xcent_scaffold/dto"
+	"github.com/gongxianjin/xcent_scaffold/dao" 
 	"github.com/gongxianjin/xcent_scaffold/middleware" 
 )
 
@@ -17,33 +16,43 @@ type UserController struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json 
-// @Param polygon body dto.ListPageInput true "body"
+// @Param polygon body request.PageInfo true "body"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /user/ListPage [post]
 func (demo *UserController) ListPage(c *gin.Context) {
-	listInput := &dto.ListPageInput{}
+	listInput := &request.PageInfo{}
 	if err := listInput.BindingValidParams(c); err != nil {
 		middleware.ResponseError(c, 2001, err)
 		return
 	}
-	if listInput.PageSize == 0 {
-		listInput.PageSize = 10
+	if listInput.pageSize == 0 {
+		listInput.pageSize = 10
 	}
-	tx, err := lib.GetGormPool("default")
-	if err != nil {
-		middleware.ResponseError(c, 2002, err)
-		return
+	// tx, err := lib.GetGormPool("default")
+	// if err != nil {
+	// 	middleware.ResponseError(c, 2002, err)
+	// 	return
+	// }
+	// userList, total, err := (&dao.User{}).PageList(c, tx, listInput)
+	// if err != nil {
+	// 	middleware.ResponseError(c, 2003, err)
+	// 	return
+	// }
+	// m := &dao.ListPageOutput{
+	// 	List:  userList,
+	// 	Total: total,
+	// }
+	//middleware.ResponseSuccess(c, m) 
+	if err, list, total := service.GetUserInfoList(pageInfo); err != nil { 
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
 	}
-	userList, total, err := (&dao.User{}).PageList(c, tx, listInput)
-	if err != nil {
-		middleware.ResponseError(c, 2003, err)
-		return
-	}
-	m := &dao.ListPageOutput{
-		List:  userList,
-		Total: total,
-	}
-	middleware.ResponseSuccess(c, m)
 	return
 }
 

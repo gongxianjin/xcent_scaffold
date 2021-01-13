@@ -1,9 +1,10 @@
 package model
 
 import (
-	"github.com/satori/go.uuid"
-	"gorm.io/gorm"
 	"time"
+
+	"github.com/gofrs/uuid"
+	"gorm.io/gorm"
 )
 
 type SysUser struct {
