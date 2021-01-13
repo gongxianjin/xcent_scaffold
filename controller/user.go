@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"log"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -15,16 +16,16 @@ import (
 )
 
 type UserController struct {
-} 
+}
 
 // @Tags SysUser
 // @Summary 分页获取用户列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json 
-// @Param polygon body request.PageInfo true "body"
+// @Param data body request.PageInfo true "页码, 每页大小,"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /user/ListPage [post]
+// @Router /user/ListPage [GET]
 func (demo *UserController) ListPage(c *gin.Context) {
 	// listInput :=  &dto.ListPageInput{}
 	// if err := listInput.BindingValidParams(c); err != nil {
@@ -48,15 +49,15 @@ func (demo *UserController) ListPage(c *gin.Context) {
 	// 	List:  userList,
 	// 	Total: total,
 	// }
-	//middleware.ResponseSuccess(c, m) 
-	
+	//middleware.ResponseSuccess(c, m)
+	log.Fatalln("begin List");
 	var pageInfo request.PageInfo
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err := utils.Verify(pageInfo, utils.PageInfoVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err, list, total := service.GetUserInfoList(pageInfo); err != nil { 
+	if err, list, total := service.GetUserInfoList(pageInfo); err != nil {
 		response.FailWithMessage("获取失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{

@@ -285,13 +285,13 @@ paths:
       tags:
       - 用户
   /user/ListPage:
-    post:
+    get:
       consumes:
       - application/json
       parameters:
-      - description: body
+      - description: 页码, 每页大小,
         in: body
-        name: polygon
+        name: data
         required: true
         schema:
           $ref: '#/definitions/request.PageInfo'

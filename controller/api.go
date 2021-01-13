@@ -150,7 +150,7 @@ func (demo *ApiController) LoginOut(c *gin.Context) {
 	return
 }
 
-func (demo *ApiController) ListPage(c *gin.Context) {
+func (demo *ApiController) ListPageBAK(c *gin.Context) {
 	listInput := &dto.ListPageInput{}
 	if err := listInput.BindingValidParams(c); err != nil {
 		middleware.ResponseError(c, 2001, err)

@@ -214,7 +214,7 @@ var doc = `{
             }
         },
         "/user/ListPage": {
-            "post": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -232,8 +232,8 @@ var doc = `{
                 "summary": "分页获取用户列表",
                 "parameters": [
                     {
-                        "description": "body",
-                        "name": "polygon",
+                        "description": "页码, 每页大小,",
+                        "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
