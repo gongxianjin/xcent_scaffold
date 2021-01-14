@@ -268,6 +268,7 @@ var store = base64Captcha.DefaultMemStore
 func (demo *ApiController)Captcha(c *gin.Context) {
 	//字符,公式,验证码配置
 	// 生成默认数字的driver
+	log.Printf("img-height:%v,width:%v",lib.GetIntConf("base.Captcha.img-height"),lib.GetIntConf("base.Captcha.img-width"))
 	driver := base64Captcha.NewDriverDigit(lib.GetIntConf("base.Captcha.img-height"),lib.GetIntConf("base.Captcha.img-width"),2, 0.7, 80)
 	cp := base64Captcha.NewCaptcha(driver, store)
 	if id, b64s, err := cp.Generate(); err != nil {
