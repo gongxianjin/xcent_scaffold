@@ -23,18 +23,16 @@ Gin best practices, gin development scaffolding, too late to explain, get on the
 
 1. 路由独立出来
 2. sql 自动生成 
-3. casbin集成
-
-todo 
+3. casbin集成 
 4. jwt集成
 5. 用户管理,权限rbac集成
 
 todo
-3. 权限管理：基于jwt和casbin实现的权限管理中间件 
-4. 文件上传下载：实现基于七牛云的文件上传操作（为了方便大家测试，我公开了自己的七牛测试号的各种重要token，恳请大家不要乱传东西）
-5. 分页封装：前端使用mixins封装分页，分页方法调用mixins即可
-6. api管理：不同用户可调用的api接口的权限不同。
-7. 富文本编辑器：MarkDown编辑器功能嵌入。
+1 权限管理：基于jwt和casbin实现的权限管理中间件 
+2. 文件上传下载：实现基于七牛云的文件上传操作（为了方便大家测试，我公开了自己的七牛测试号的各种重要token，恳请大家不要乱传东西）
+3. 分页封装：前端使用mixins封装分页，分页方法调用mixins即可
+4. api管理：不同用户可调用的api接口的权限不同。
+5. 富文本编辑器：MarkDown编辑器功能嵌入。
 
 项目地址：https://github.com/gongxianjin/xcent_scaffold
 ### 现在开始
@@ -142,6 +140,7 @@ curl 'http://127.0.0.1:8880/demo/bind?name=name&locale=en'
 ├── docs            swagger文件层
 ├── dto             输入输出结构层
 │   └── demo.go
+└── initialize          初始化数据库
 ├── go.mod
 ├── go.sum
 ├── main.go         入口文件
@@ -150,13 +149,19 @@ curl 'http://127.0.0.1:8880/demo/bind?name=name&locale=en'
 │   ├── response.go
 │   ├── token_auth.go
 │   └── translation.go
+├── model          模型层与dao层配合使用
+│   ├── request   基础输入请求
+│   ├── response 基础输出请求
+│   └── sys_apis.go 
 ├── public          公共文件
 │   ├── log.go
 │   ├── mysql.go
 │   └── validate.go
 └── router          路由层
-    ├── httpserver.go
-    └── route.go
+│   ├── httpserver.go
+│   └── route.go
+└── service         服务层 
+└── utils          工具层 
 ```
 
 ### log / redis / mysql / http.client 常用方法
