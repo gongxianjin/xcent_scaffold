@@ -13,6 +13,7 @@ func InitBaseRouter(router *gin.RouterGroup) {
 		middleware.TranslationMiddleware())
 	{
 		BaseRouter.POST("login", curd.Login)
+		BaseRouter.POST("captcha", curd.Captcha)
 		BaseRouter.POST("register", curd.Register)
 		BaseRouter.GET("loginOut", curd.LoginOut)
 	}

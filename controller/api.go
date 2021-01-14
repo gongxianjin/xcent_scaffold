@@ -265,10 +265,10 @@ var store = base64Captcha.DefaultMemStore
 // @Produce application/json
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"
 // @Router /base/captcha [post]
-func Captcha(c *gin.Context) {
+func (demo *ApiController)Captcha(c *gin.Context) {
 	//字符,公式,验证码配置
 	// 生成默认数字的driver
-	driver := base64Captcha.NewDriverDigit(lib.GetIntConf("base.Captcha.img-height"),lib.GetIntConf("base.Captcha.img-width"), lib.GetIntConf("base.Captcha.key-long"), 0.7, 80)
+	driver := base64Captcha.NewDriverDigit(lib.GetIntConf("base.Captcha.img-height"),lib.GetIntConf("base.Captcha.img-width"),2, 0.7, 80)
 	cp := base64Captcha.NewCaptcha(driver, store)
 	if id, b64s, err := cp.Generate(); err != nil {
 		log.Printf("验证码获取失败!:%v",err)
