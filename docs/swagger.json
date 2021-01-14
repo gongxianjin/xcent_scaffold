@@ -1,9 +1,14 @@
 {
     "swagger": "2.0",
     "info": {
+        "description": "This is a sample server celler server.",
+        "title": "Swagger Example API",
+        "termsOfService": "http://swagger.io/terms/",
         "contact": {},
-        "license": {}
+        "license": {},
+        "version": "1.0"
     },
+    "basePath": "/",
     "paths": {
         "/Base/register": {
             "post": {
@@ -473,6 +478,13 @@
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "x-token",
+            "in": "header"
         }
     }
 }

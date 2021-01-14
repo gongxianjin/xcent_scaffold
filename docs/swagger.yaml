@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   dto.DemoInput:
     properties:
@@ -159,7 +160,11 @@ definitions:
     type: object
 info:
   contact: {}
+  description: This is a sample server celler server.
   license: {}
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
 paths:
   /Base/register:
     post:
@@ -302,4 +307,9 @@ paths:
       summary: 分页获取用户列表
       tags:
       - SysUser
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: x-token
+    type: apiKey
 swagger: "2.0"

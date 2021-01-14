@@ -2,6 +2,7 @@ package controller
 
 import (
 	"log"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,6 @@ import (
 	"github.com/gongxianjin/xcent_scaffold/model/request"
 	"github.com/gongxianjin/xcent_scaffold/model/response"
 	"github.com/gongxianjin/xcent_scaffold/service"
-	"github.com/gongxianjin/xcent_scaffold/utils"
 )
 
 type UserController struct {
@@ -23,7 +23,7 @@ type UserController struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param page query int false "页码" 
+// @Param page query int false "页码"
 // @Param pageSize query int false "页条数"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /user/ListPage [GET]
@@ -51,22 +51,37 @@ func (demo *UserController) ListPage(c *gin.Context) {
 	// 	Total: total,
 	// }
 	//middleware.ResponseSuccess(c, m)
-	log.Fatalln("begin List")
-	var pageInfo request.PageInfo
-	_ = c.ShouldBindJSON(&pageInfo)
-	if err := utils.Verify(pageInfo, utils.PageInfoVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
+	log.Println("begin List")
+	var pageSize = 10
+	var pageIndex = 1
+	if size := c.Request.FormValue("pageSize"); size != "" {
+		pageSize, _ = strconv.Atoi(size)
 	}
+
+	if index := c.Request.FormValue("pageIndex"); index != "" {
+		pageIndex, _ = strconv.Atoi(index)
+	}
+
+	log.Printf("pageSize:%v,pageIndex:%v", pageSize, pageIndex) 
+	var pageInfo request.PageInfo
+	pageInfo.Page = pageIndex
+	pageInfo.PageSize = pageSize
 	if err, list, total := service.GetUserInfoList(pageInfo); err != nil {
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
-		}, "获取成功", c)
+		// response.OkWithDetailed(response.PageResult{
+		// 	List:     list,
+		// 	Total:    total,
+		// 	Page:     pageInfo.Page,
+		// 	PageSize: pageInfo.PageSize,
+		// }, "获取成功", c)
+			m := response.PageResult{
+				List:     list,
+				Total:    total,
+				Page:     pageInfo.Page,
+				PageSize: pageInfo.PageSize,
+			}
+		middleware.ResponseSuccess(c, m)
 	}
 	return
 }

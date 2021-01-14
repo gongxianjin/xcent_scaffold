@@ -56,11 +56,6 @@ import (
 
 // @x-extension-openapi {"example": "value on a json format"}
 
-// @securityDefinitions.apikey ApiKeyAuth
-// @in header
-// @name x-token
-// @BasePath /
-
 func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	// programatically set swagger info
 	docs.SwaggerInfo.Title = lib.GetStringConf("base.swagger.title")
