@@ -48,3 +48,9 @@
 # jwt configuration
 [jwt]
   signing-key = 'XCENT'
+
+# captcha configuration
+[captcha]
+  key-long = 2
+  img-width =  240
+  img-height = 80

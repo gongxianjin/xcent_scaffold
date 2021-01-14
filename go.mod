@@ -20,12 +20,14 @@ require (
 	github.com/gongxianjin/xcent-common v0.0.0-20201230081359-6f75ee6b9f15
 	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
+	github.com/mojocn/base64Captcha v1.3.1
 	github.com/onsi/ginkgo v1.7.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/satori/go.uuid v1.2.0
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
+	go.uber.org/zap v1.10.0
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/go-playground/validator.v9 v9.31.0
