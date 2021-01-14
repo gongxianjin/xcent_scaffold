@@ -177,7 +177,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "用户"
+                    "Demo"
                 ],
                 "summary": "测试数据绑定",
                 "operationId": "/demo/bind",

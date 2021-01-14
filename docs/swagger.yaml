@@ -281,7 +281,7 @@ paths:
               type: object
       summary: 测试数据绑定
       tags:
-      - 用户
+      - Demo
   /user/ListPage:
     get:
       consumes:
