@@ -23,6 +23,8 @@ import (
 	"github.com/mojocn/base64Captcha"
 )
 
+var store = base64Captcha.DefaultMemStore
+
 type ApiController struct {
 }
 
@@ -41,11 +43,18 @@ func (demo *ApiController) Login(c *gin.Context) {
 		middleware.ResponseError(c, 2001, err)
 		return
 	}
+	if !store.Verify(api.CaptchaId, api.Captcha, true){
+		middleware.ResponseError(c, 2002, errors.New("验证码错误"))
+	}
 	U := &model.SysUser{Username: api.Username, Password: api.Password}
 	if err, user := service.Login(U); err != nil {
 		log.Printf("登陆失败! 用户名不存在或者密码错误:%v", err)
 		middleware.ResponseError(c, 2002, errors.New("用户名不存在或者密码错误"))
-	} else {
+	} else { 
+		session := sessions.Default(c) 
+		session.Set("user", user.Username)
+		session.Set("user_id", user.AuthorityId)
+		session.Save()
 		tokenNext(c, *user)
 	}
 	// if api.Username == "admin" && api.Password == "123456" {
@@ -256,7 +265,6 @@ func (demo *ApiController) RemoveUser(c *gin.Context) {
 	return
 }
 
-var store = base64Captcha.DefaultMemStore
 
 // @Tags Base
 // @Summary 生成验证码

@@ -6,8 +6,10 @@ import (
 )
 
 type LoginInput struct {
-	Username string `form:"username" json:"username" comment:"用户名"  validate:"required" example:""`
-	Password string `form:"password" json:"password" comment:"密码"   validate:"required" example:""`
+	Username  string `form:"username" json:"username" comment:"用户名"  validate:"required" example:""`
+	Password  string `form:"password" json:"password" comment:"密码"   validate:"required" example:""`
+	Captcha   string `json:"captcha"`
+	CaptchaId string `json:"captchaId"`
 }
 
 func (params *LoginInput) BindingValidParams(c *gin.Context) error {
