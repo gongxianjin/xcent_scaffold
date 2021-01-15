@@ -45,11 +45,13 @@ func (demo *ApiController) Login(c *gin.Context) {
 	}
 	if !store.Verify(api.CaptchaId, api.Captcha, true){
 		middleware.ResponseError(c, 2002, errors.New("验证码错误"))
+		return
 	}
 	U := &model.SysUser{Username: api.Username, Password: api.Password}
 	if err, user := service.Login(U); err != nil {
 		log.Printf("登陆失败! 用户名不存在或者密码错误:%v", err)
 		middleware.ResponseError(c, 2002, errors.New("用户名不存在或者密码错误"))
+		return
 	} else { 
 		session := sessions.Default(c) 
 		session.Set("user", user.Username)
@@ -267,8 +269,7 @@ func (demo *ApiController) RemoveUser(c *gin.Context) {
 
 
 // @Tags Base
-// @Summary 生成验证码
-// @Security ApiKeyAuth
+// @Summary 生成验证码 
 // @accept application/json
 // @Produce application/json
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"

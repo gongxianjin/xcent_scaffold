@@ -18,6 +18,10 @@ definitions:
     type: object
   dto.LoginInput:
     properties:
+      captcha:
+        type: string
+      captchaId:
+        type: string
       password:
         type: string
       username:
@@ -196,8 +200,6 @@ paths:
           description: '{"success":true,"data":{},"msg":"验证码获取成功"}'
           schema:
             type: string
-      security:
-      - ApiKeyAuth: []
       summary: 生成验证码
       tags:
       - Base

@@ -58,11 +58,6 @@ var doc = `{
         },
         "/base/captcha": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -313,6 +308,12 @@ var doc = `{
                 "username"
             ],
             "properties": {
+                "captcha": {
+                    "type": "string"
+                },
+                "captchaId": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
