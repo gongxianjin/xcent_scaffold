@@ -193,6 +193,12 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: 微信openID
+        in: formData
+        name: openId
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -200,7 +206,7 @@ paths:
           description: '{"success":true,"data":{},"msg":"验证码获取成功"}'
           schema:
             type: string
-      summary: 生成验证码
+      summary: 生成微信验证码
       tags:
       - Base
   /base/login:

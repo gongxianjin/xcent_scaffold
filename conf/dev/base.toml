@@ -54,3 +54,7 @@
   key-long = 2
   img-width =  240
   img-height = 80
+
+# weichat message
+[WxCaptcha]
+  isSmsVerification = true

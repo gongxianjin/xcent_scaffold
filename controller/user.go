@@ -62,7 +62,7 @@ func (demo *UserController) ListPage(c *gin.Context) {
 		pageIndex, _ = strconv.Atoi(index)
 	}
 
-	log.Printf("pageSize:%v,pageIndex:%v", pageSize, pageIndex) 
+	log.Printf("pageSize:%v,pageIndex:%v", pageSize, pageIndex)
 	var pageInfo request.PageInfo
 	pageInfo.Page = pageIndex
 	pageInfo.PageSize = pageSize
@@ -75,12 +75,12 @@ func (demo *UserController) ListPage(c *gin.Context) {
 		// 	Page:     pageInfo.Page,
 		// 	PageSize: pageInfo.PageSize,
 		// }, "获取成功", c)
-			m := response.PageResult{
-				List:     list,
-				Total:    total,
-				Page:     pageInfo.Page,
-				PageSize: pageInfo.PageSize,
-			}
+		m := response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}
 		middleware.ResponseSuccess(c, m)
 	}
 	return

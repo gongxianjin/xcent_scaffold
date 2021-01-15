@@ -67,7 +67,16 @@ var doc = `{
                 "tags": [
                     "Base"
                 ],
-                "summary": "生成验证码",
+                "summary": "生成微信验证码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "微信openID",
+                        "name": "openId",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"验证码获取成功\"}",

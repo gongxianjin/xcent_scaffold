@@ -43,7 +43,7 @@ func (demo *ApiController) Login(c *gin.Context) {
 		middleware.ResponseError(c, 2001, err)
 		return
 	}
-	if !store.Verify(api.CaptchaId, api.Captcha, true){
+	if !store.Verify(api.CaptchaId, api.Captcha, true) {
 		middleware.ResponseError(c, 2002, errors.New("验证码错误"))
 		return
 	}
@@ -52,8 +52,8 @@ func (demo *ApiController) Login(c *gin.Context) {
 		log.Printf("登陆失败! 用户名不存在或者密码错误:%v", err)
 		middleware.ResponseError(c, 2002, errors.New("用户名不存在或者密码错误"))
 		return
-	} else { 
-		session := sessions.Default(c) 
+	} else {
+		session := sessions.Default(c)
 		session.Set("user", user.Username)
 		session.Set("user_id", user.AuthorityId)
 		session.Save()
@@ -267,21 +267,20 @@ func (demo *ApiController) RemoveUser(c *gin.Context) {
 	return
 }
 
-
 // @Tags Base
-// @Summary 生成验证码 
+// @Summary 生成图片验证码
 // @accept application/json
-// @Produce application/json
+// @Produce application/json 
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"
 // @Router /base/captcha [post]
-func (demo *ApiController)Captcha(c *gin.Context) {
+func (demo *ApiController) PicCaptcha(c *gin.Context) {
 	//字符,公式,验证码配置
 	// 生成默认数字的driver
-	log.Printf("img-height:%v,width:%v,key-long:%v",lib.GetIntConf("base.Captcha.img-height"),lib.GetIntConf("base.Captcha.img-width"),lib.GetIntConf("base.Captcha.key-long"))
-	driver := base64Captcha.NewDriverDigit(lib.GetIntConf("base.Captcha.img-height"),lib.GetIntConf("base.Captcha.img-width"),lib.GetIntConf("base.Captcha.key-long"), 0.7, 80)
+	log.Printf("img-height:%v,width:%v,key-long:%v", lib.GetIntConf("base.Captcha.img-height"), lib.GetIntConf("base.Captcha.img-width"), lib.GetIntConf("base.Captcha.key-long"))
+	driver := base64Captcha.NewDriverDigit(lib.GetIntConf("base.Captcha.img-height"), lib.GetIntConf("base.Captcha.img-width"), lib.GetIntConf("base.Captcha.key-long"), 0.7, 80)
 	cp := base64Captcha.NewCaptcha(driver, store)
 	if id, b64s, err := cp.Generate(); err != nil {
-		log.Printf("验证码获取失败!:%v",err)
+		log.Printf("验证码获取失败!:%v", err)
 		response.FailWithMessage("验证码获取失败", c)
 	} else {
 		response.OkWithDetailed(response.SysCaptchaResponse{
@@ -291,4 +290,20 @@ func (demo *ApiController)Captcha(c *gin.Context) {
 	}
 }
 
+// todo 生成短信验证码  待完成
+func (demo *ApiController) MessageCaptcha(c *gin.Context) {
+}
 
+// @Tags Base
+// @Summary 生成微信验证码
+// @accept application/json
+// @Produce application/json
+// @Param  openId formData  string true "微信openID"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"
+// @Router /base/captcha [post]
+func (demo *ApiController) WechatCaptcha(c *gin.Context) {
+	//获取openID
+	// data := c.Request.FormValue("openId")
+	data := c.Request.PostForm
+	log.Printf("openId:%v",data ) 
+}

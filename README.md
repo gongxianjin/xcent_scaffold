@@ -26,7 +26,7 @@ Gin best practices, gin development scaffolding, too late to explain, get on the
 3. casbin集成 
 4. jwt集成
 5. 用户管理,权限rbac集成
-6. 实现验证码登录,手机号+验证码登录,邮箱+手机号注册
+6. 实现验证码登录,手机号+验证码登录,微信认证登陆,邮箱+手机号注册
 
 todo
 
