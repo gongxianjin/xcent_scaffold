@@ -192,7 +192,7 @@ paths:
   /base/captcha:
     post:
       consumes:
-      - application/json
+      - multipart/form-data
       parameters:
       - description: 微信openID
         in: formData

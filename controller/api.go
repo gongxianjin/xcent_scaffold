@@ -296,14 +296,17 @@ func (demo *ApiController) MessageCaptcha(c *gin.Context) {
 
 // @Tags Base
 // @Summary 生成微信验证码
-// @accept application/json
-// @Produce application/json
+// @accept multipart/form-data
+// @Produce  application/json
 // @Param  openId formData  string true "微信openID"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"
 // @Router /base/captcha [post]
 func (demo *ApiController) WechatCaptcha(c *gin.Context) {
 	//获取openID
-	// data := c.Request.FormValue("openId")
-	data := c.Request.PostForm
-	log.Printf("openId:%v",data ) 
+	data := c.Request.FormValue("openId")
+	//data := c.PostForm("openId")
+	//buf := make([]byte, 1024)
+	//n, _ := c.Request.Body.Read(buf)
+	//log.Printf("data:%v,buf:%v",data,string(buf[0:n]))
+	log.Printf("openId:%v",data)
 }

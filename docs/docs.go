@@ -59,7 +59,7 @@ var doc = `{
         "/base/captcha": {
             "post": {
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
