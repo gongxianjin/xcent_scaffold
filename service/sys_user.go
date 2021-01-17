@@ -19,8 +19,10 @@ import (
 //@return: err error, userInter model.SysUser
 
 func Register(u model.SysUser) (err error, userInter model.SysUser) {
-	var user model.SysUser 
-	if !errors.Is(lib.GORMDefaultPool.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
+	var user model.SysUser
+	log.Printf("userName:%v",u.Username)
+	if errors.Is(lib.GORMDefaultPool.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
+		log.Printf("username is exists:%v",lib.GORMDefaultPool.Where("username = ?", u.Username).First(&user).Error)
 		return errors.New("用户名已注册"), userInter
 	}
 	// 否则 附加uuid 密码md5简单加密 注册

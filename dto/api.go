@@ -58,3 +58,9 @@ type RemoveUserInput struct {
 func (params *RemoveUserInput) BindingValidParams(c *gin.Context) error {
 	return public.DefaultGetValidParams(c, params)
 }
+
+type SmsResponse struct {
+	Code int32 `json:"Code"`
+	Msg   string `json:"Msg"`
+}
+

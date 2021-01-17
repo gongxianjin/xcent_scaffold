@@ -7,7 +7,7 @@ var (
 	MenuMetaVerify         = Rules{"Title": {NotEmpty()}}
 	LoginVerify            = Rules{"CaptchaId": {NotEmpty()}, "Captcha": {NotEmpty()}, "Username": {NotEmpty()}, "Password": {NotEmpty()}}
 	SetUserVerify          = Rules{"ID": {NotEmpty()}, "Username": {NotEmpty()}, "NickName": {NotEmpty()}, "HeaderImg": {NotEmpty()}}
-	RegisterVerify         = Rules{"Username": {NotEmpty()}, "NickName": {NotEmpty()}, "Password": {NotEmpty()}, "AuthorityId": {NotEmpty()}}
+	RegisterVerify         = Rules{"userName": {NotEmpty()}, "nickName": {NotEmpty()}, "phone":{NotEmpty()},"passWord": {NotEmpty()}, "authorityId": {NotEmpty()}}
 	PageInfoVerify         = Rules{"Page": {NotEmpty()}, "PageSize": {NotEmpty()}}
 	CustomerVerify         = Rules{"CustomerName": {NotEmpty()}, "CustomerPhoneData": {NotEmpty()}}
 	AutoCodeVerify         = Rules{"Abbreviation": {NotEmpty()}, "StructName": {NotEmpty()}, "PackageName": {NotEmpty()}, "Fields": {NotEmpty()}}

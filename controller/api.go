@@ -2,7 +2,11 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 	"log"
+	"math/rand"
+	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
@@ -133,9 +137,9 @@ func tokenNext(c *gin.Context, user model.SysUser) {
 // @Tags Base
 // @Summary 用户注册账号
 // @Produce  application/json
-// @Param data body model.SysUser true "用户名, 昵称, 密码, 角色ID"
+// @Param data body request.Register true "用户名, 昵称, 手机号，密码, 角色ID"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"注册成功"}"
-// @Router /Base/register [post]
+// @Router /base/register [post]
 func (demo *ApiController) Register(c *gin.Context) {
 	var R request.Register
 	_ = c.ShouldBindJSON(&R)
@@ -143,10 +147,10 @@ func (demo *ApiController) Register(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	user := &model.SysUser{Username: R.Username, NickName: R.NickName, Password: R.Password, HeaderImg: R.HeaderImg, AuthorityId: R.AuthorityId}
+	user := &model.SysUser{Username: R.Username, NickName: R.NickName,Phone: R.Phone,Password: R.Password, HeaderImg: R.HeaderImg, AuthorityId: R.AuthorityId}
 	err, userReturn := service.Register(*user)
 	if err != nil {
-		log.Fatalf("注册失败：%v", err)
+		log.Printf("注册失败：%v", err)
 		response.FailWithDetailed(response.SysUserResponse{User: userReturn}, "注册失败", c)
 	} else {
 		response.OkWithDetailed(response.SysUserResponse{User: userReturn}, "注册成功", c)
@@ -272,7 +276,7 @@ func (demo *ApiController) RemoveUser(c *gin.Context) {
 // @accept application/json
 // @Produce application/json 
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"
-// @Router /base/captcha [post]
+// @Router /base/picCaptcha [post]
 func (demo *ApiController) PicCaptcha(c *gin.Context) {
 	//字符,公式,验证码配置
 	// 生成默认数字的driver
@@ -290,8 +294,56 @@ func (demo *ApiController) PicCaptcha(c *gin.Context) {
 	}
 }
 
-// todo 生成短信验证码  待完成
+// 识别手机号码
+func isMobile(mobile string) bool{
+	result, _ := regexp.MatchString(`^(1[3|4|5|8][0-9]\d{4,8})$`, mobile)
+	if result {
+		log.Println(`正确的手机号`)
+		return true
+	} else {
+		log.Println(`错误的手机号`)
+		return false
+	}
+}
+
+// @Tags Base
+// @Summary 生成短信验证码
+// @accept multipart/form-data
+// @Produce  application/json
+// @Param  phone formData  string true "手机号"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"
+// @Router /base/captcha [post]
 func (demo *ApiController) MessageCaptcha(c *gin.Context) {
+	//获取phoneNumb
+	phone := c.Request.FormValue("phone")
+	//验证手机号规则
+	if !isMobile(phone) {
+		c.JSON(http.StatusOK, response.Response{
+			Code: 400,
+			Data: "",
+			Msg:  "手机号不符合规则",
+		})
+		return
+	}
+	//随机生成4位数
+	randCode := rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(10000)
+	log.Printf("phone:%v,randCode:%v",phone,randCode)
+	//存入缓存中 60s 过期
+	timer := 60
+	redisObj, err := lib.RedisConnFactory("default")
+	if err != nil {
+		log.Fatalf("init redis:%v",err)
+	}
+	defer redisObj.Close()
+	trace := lib.NewTrace()
+	//code 存入 key 为手机号的主键
+	lib.RedisLogDo(trace, redisObj, "SET", phone,randCode)
+	lib.RedisLogDo(trace, redisObj, "expire", phone, timer)
+	//todo 调用短信方接口发送短信
+	middleware.ResponseSuccess(c,dto.SmsResponse{
+		Code: randCode,
+		Msg: fmt.Sprintf("短信验证码为:%d,请勿告知他人",randCode),
+	})
 }
 
 // @Tags Base
@@ -300,13 +352,32 @@ func (demo *ApiController) MessageCaptcha(c *gin.Context) {
 // @Produce  application/json
 // @Param  openId formData  string true "微信openID"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"验证码获取成功"}"
-// @Router /base/captcha [post]
+// @Router /base/wechatCaptcha [post]
 func (demo *ApiController) WechatCaptcha(c *gin.Context) {
 	//获取openID
-	data := c.Request.FormValue("openId")
+	openId := c.Request.FormValue("openId")
 	//data := c.PostForm("openId")
 	//buf := make([]byte, 1024)
 	//n, _ := c.Request.Body.Read(buf)
 	//log.Printf("data:%v,buf:%v",data,string(buf[0:n]))
-	log.Printf("openId:%v",data)
+	log.Printf("openId:%v",openId)
+	//随机生成4位数
+	randCode := rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(10000)
+	log.Printf("phone:%v,randCode:%v",openId,randCode)
+	//存入缓存中 60s 过期
+	timer := 60
+	redisObj, err := lib.RedisConnFactory("default")
+	if err != nil {
+		log.Fatalf("init redis:%v",err)
+	}
+	defer redisObj.Close()
+	trace := lib.NewTrace()
+	//code 存入 key 为手机号的主键
+	lib.RedisLogDo(trace, redisObj, "SET", openId,randCode)
+	lib.RedisLogDo(trace, redisObj, "expire", openId, timer)
+	//todo 调用微信模板接口发送消息
+	middleware.ResponseSuccess(c,dto.SmsResponse{
+		Code: randCode,
+		Msg: fmt.Sprintf("验证码为:%d,请勿告知他人",randCode),
+	})
 }
