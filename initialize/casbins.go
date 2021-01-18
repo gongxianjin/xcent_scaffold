@@ -137,7 +137,7 @@ var Carbines = []gormadapter.CasbinRule{
 }
 
 func InitCasbinModel(db *gorm.DB) {
-	if db.Where("p_type = ? AND v0 IN (?)", "p", []string{"888", "8881", "9528"}).Find(&[]gormadapter.CasbinRule{}).RowsAffected == 126 {
+	if db.Where("p_type = ? AND v0 IN (?)", "p", []string{"888", "8881", "9528"}).Find(&[]gormadapter.CasbinRule{}).RowsAffected == 127 {
 		log.Println("casbin_rule表的初始数据已存在!")
 		return
 	}

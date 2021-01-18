@@ -63,6 +63,7 @@ func (demo *DemoController) Redis(c *gin.Context) {
 // @Summary 测试数据绑定
 // @Description 测试数据绑定
 // @Tags Demo
+// @Security ApiKeyAuth
 // @ID /demo/bind
 // @Accept  json
 // @Produce  json

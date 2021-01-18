@@ -251,6 +251,8 @@ paths:
                 data:
                   $ref: '#/definitions/dto.DemoInput'
               type: object
+      security:
+      - ApiKeyAuth: []
       summary: 测试数据绑定
       tags:
       - Demo

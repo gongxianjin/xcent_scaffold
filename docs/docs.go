@@ -253,6 +253,11 @@ var doc = `{
         },
         "/demo/bind": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "测试数据绑定",
                 "consumes": [
                     "application/json"

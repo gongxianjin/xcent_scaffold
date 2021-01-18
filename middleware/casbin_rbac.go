@@ -2,18 +2,19 @@ package middleware
 
 import (
 	"fmt"
- 
+	"log"
+
 	"github.com/gin-gonic/gin"
+	"github.com/gongxianjin/xcent_scaffold/model/request"
 	"github.com/gongxianjin/xcent_scaffold/service"
+	"github.com/gongxianjin/xcent_scaffold/model/response"
 )
 
 // 拦截器
 func CasbinHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		claims, _ := c.Get("claims")
-		fmt.Println(claims)
+		claims, _ := c.Get("claims") 
 		waitUse := claims.(*request.CustomClaims)
-		fmt.Println(waitUse)
 		// 获取请求的URI
 		obj := c.Request.URL.RequestURI()
 		fmt.Println(obj)
@@ -27,12 +28,14 @@ func CasbinHandler() gin.HandlerFunc {
 		e := service.Casbin()
 		// 判断策略中是否存在
 		success, err := e.Enforce(sub, obj, act)
+		fmt.Println(success)
 		if success {
 			c.Next()
 		} else {
-			ResponseError(c, 501, err)
+			log.Printf("rabc role:%v",err)
+			response.FailWithDetailed(gin.H{}, "权限不足", c)
 			c.Abort()
-			return
+			return 
 		}
 	}
 }
