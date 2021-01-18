@@ -2,23 +2,25 @@ package middleware
 
 import (
 	"errors"
+	"log"
+
 	"github.com/gongxianjin/xcent_scaffold/model"
 	"github.com/gongxianjin/xcent_scaffold/model/request"
-	"log"
+
+	"strconv"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/gongxianjin/xcent-common/lib"
 	"github.com/gongxianjin/xcent_scaffold/service"
-	"strconv"
-	"time"
 )
 
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// 我们这里jwt鉴权取头部信息 x-token 登录时回返回token信息 这里前端需要把token存储到cookie或者本地localStorage中 不过需要跟后端协商过期时间 可以约定刷新令牌或者重新登录
 		token := c.Request.Header.Get("x-token")
-		if token == "" { 
+		if token == "" {
 			ResponseError(c, InternalErrorCode, errors.New("未登录或非法访问"))
 			c.Abort()
 			return
@@ -32,17 +34,17 @@ func JWTAuth() gin.HandlerFunc {
 		// parseToken 解析token包含的信息
 		claims, err := j.ParseToken(token)
 		if err != nil {
-			if err == TokenExpired { 
+			if err == TokenExpired {
 				ResponseError(c, InternalErrorCode, errors.New("授权已过期"))
 				c.Abort()
 				return
-			} 
+			}
 			ResponseError(c, InternalErrorCode, errors.New(err.Error()))
 			c.Abort()
 			return
 		}
 		if err, _ = service.FindUserByUuid(claims.UUID.String()); err != nil {
-			// _ = service.JsonInBlacklist(model.JwtBlacklist{Jwt: token}) 
+			// _ = service.JsonInBlacklist(model.JwtBlacklist{Jwt: token})
 			ResponseError(c, InternalErrorCode, errors.New(err.Error()))
 			c.Abort()
 		}
@@ -51,7 +53,7 @@ func JWTAuth() gin.HandlerFunc {
 			newToken, _ := j.CreateToken(*claims)
 			newClaims, _ := j.ParseToken(newToken)
 			c.Header("new-token", newToken)
-			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10))  
+			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10))
 			if lib.GetBoolConf("base.system.use-multipoint") {
 				err, RedisJwtToken := service.GetRedisJWT(newClaims.Username)
 				if err != nil {
