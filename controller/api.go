@@ -137,7 +137,7 @@ func tokenNext(c *gin.Context, user model.SysUser) {
 // @Tags Base
 // @Summary 用户注册账号
 // @Produce  application/json
-// @Param data body request.Register true "用户名, 昵称, 手机号，密码, 角色ID"
+// @Param data body request.Register true "用户名, 昵称, 手机号，邮箱，密码, 角色ID"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"注册成功"}"
 // @Router /base/register [post]
 func (demo *ApiController) Register(c *gin.Context) {
@@ -147,7 +147,7 @@ func (demo *ApiController) Register(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	user := &model.SysUser{Username: R.Username, NickName: R.NickName,Phone: R.Phone,Password: R.Password, HeaderImg: R.HeaderImg, AuthorityId: R.AuthorityId}
+	user := &model.SysUser{Username: R.Username, NickName: R.NickName,Phone: R.Phone,Email: R.Email,Password: R.Password, HeaderImg: R.HeaderImg, AuthorityId: R.AuthorityId}
 	err, userReturn := service.Register(*user)
 	if err != nil {
 		log.Printf("注册失败：%v", err)

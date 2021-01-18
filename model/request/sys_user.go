@@ -7,6 +7,7 @@ type Register struct {
 	Username    string `json:"userName"`
 	Password    string `json:"passWord"`
 	Phone       string `json:"phone"`
+	Email       string `json:"email"`
 	NickName    string `json:"nickName" gorm:"default:'xcentUser'"`
 	HeaderImg   string `json:"headerImg" gorm:"default:''"`
 	AuthorityId string `json:"authorityId" gorm:"default:888"`

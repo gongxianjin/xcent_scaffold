@@ -125,7 +125,7 @@ var doc = `{
                 "summary": "用户注册账号",
                 "parameters": [
                     {
-                        "description": "用户名, 昵称, 手机号，密码, 角色ID",
+                        "description": "用户名, 昵称, 手机号，邮箱，密码, 角色ID",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -433,6 +433,9 @@ var doc = `{
             "type": "object",
             "properties": {
                 "authorityId": {
+                    "type": "string"
+                },
+                "email": {
                     "type": "string"
                 },
                 "headerImg": {
