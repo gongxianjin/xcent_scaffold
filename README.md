@@ -27,14 +27,14 @@ Gin best practices, gin development scaffolding, too late to explain, get on the
 4. jwt集成
 5. 用户管理,权限rbac集成
 6. 实现验证码登录,手机号+验证码登录,微信认证登陆,邮箱+手机号注册
+7. 权限管理：基于jwt和casbin实现的权限管理中间件 
 
 todo
 
-1. 权限管理：基于jwt和casbin实现的权限管理中间件 
-2. 文件上传下载：实现基于七牛云的文件上传操作（为了方便大家测试，我公开了自己的七牛测试号的各种重要token，恳请大家不要乱传东西）
-3. 分页封装：前端使用mixins封装分页，分页方法调用mixins即可
-4. api管理：不同用户可调用的api接口的权限不同。
-5. 富文本编辑器：MarkDown编辑器功能嵌入。
+1. 文件上传下载：实现基于七牛云的文件上传操作（为了方便大家测试，我公开了自己的七牛测试号的各种重要token，恳请大家不要乱传东西）
+2. 分页封装：前端使用mixins封装分页，分页方法调用mixins即可
+3. api管理：不同用户可调用的api接口的权限不同。
+4. 富文本编辑器：MarkDown编辑器功能嵌入。
 
 项目地址：https://github.com/gongxianjin/xcent_scaffold
 ### 现在开始
