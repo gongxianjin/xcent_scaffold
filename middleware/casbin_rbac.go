@@ -2,8 +2,7 @@ package middleware
 
 import (
 	"fmt"
-
-	"github.com/gin-gonic/contrib/sessions"
+ 
 	"github.com/gin-gonic/gin"
 	"github.com/gongxianjin/xcent_scaffold/service"
 )
