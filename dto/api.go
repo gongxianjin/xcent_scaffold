@@ -60,7 +60,6 @@ func (params *RemoveUserInput) BindingValidParams(c *gin.Context) error {
 }
 
 type SmsResponse struct {
-	Code int32 `json:"Code"`
-	Msg   string `json:"Msg"`
+	Code int32  `json:"Code"`
+	Msg  string `json:"Msg"`
 }
-
