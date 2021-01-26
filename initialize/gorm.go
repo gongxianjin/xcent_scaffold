@@ -15,7 +15,7 @@ func MysqlTables(db *gorm.DB) {
 		model.SysAuthority{},
 		model.Sys_Data_Authority_Id{},
 		model.JwtBlacklist{},
-		model.SysBaseMenus{},
+		model.SysBaseMenu{},
 		model.SysUser{},
 		gormadapter.CasbinRule{},
 	)

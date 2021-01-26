@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var BaseMenus = []model.SysBaseMenus{
+var BaseMenus = []model.SysBaseMenu{
 	{BaseModel: model.BaseModel{ID: 1, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, ParentId: "0", Path: "dashboard", Name: "dashboard", Hidden: false, Component: "view/dashboard/index.vue", Sort: 1, Meta: model.Meta{Title: "仪表盘", Icon: "setting"}},
 	{BaseModel: model.BaseModel{ID: 2, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "0", Path: "about", Name: "about", Component: "view/about/index.vue", Sort: 7, Meta: model.Meta{Title: "关于我们", Icon: "info"}},
 	{BaseModel: model.BaseModel{ID: 3, CreatedAt: time.Now(), UpdatedAt: time.Now()}, MenuLevel: 0, Hidden: false, ParentId: "0", Path: "admin", Name: "superAdmin", Component: "view/superAdmin/index.vue", Sort: 3, Meta: model.Meta{Title: "超级管理员", Icon: "user-solid"}},
@@ -44,7 +44,7 @@ var BaseMenus = []model.SysBaseMenus{
 }
 
 func InitSysBaseMenus(db *gorm.DB) {
-	if db.Where("id IN (?)", []int{1, 27}).Find(&[]model.SysBaseMenus{}).RowsAffected == 2 {
+	if db.Where("id IN (?)", []int{1, 27}).Find(&[]model.SysBaseMenu{}).RowsAffected == 2 {
 		log.Println("sys_base_menus表的初始数据已存在!")
 		return
 	}

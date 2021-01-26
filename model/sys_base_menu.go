@@ -4,7 +4,7 @@ import (
 	"github.com/gongxianjin/xcent-common/gorm"
 )
 
-type SysBaseMenus struct {
+type SysBaseMenu struct {
 	BaseModel
 	MenuLevel     uint   `json:"-"`
 	ParentId      string `json:"parentId" gorm:"comment:父菜单ID"`
@@ -15,7 +15,7 @@ type SysBaseMenus struct {
 	Sort          int    `json:"sort" gorm:"comment:排序标记"`
 	Meta          `json:"meta" gorm:"comment:附加属性"`
 	SysAuthoritys []SysAuthority         `json:"authoritys" gorm:"many2many:sys_authority_menus;"`
-	Children      []SysBaseMenus          `json:"children" gorm:"-"`
+	Children      []SysBaseMenu         `json:"children" gorm:"-"`
 	Parameters    []SysBaseMenuParameter `json:"parameters"`
 }
 

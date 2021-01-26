@@ -20,9 +20,9 @@ import (
 
 func Register(u model.SysUser) (err error, userInter model.SysUser) {
 	var user model.SysUser
-	log.Printf("userName:%v",u.Username)
+	log.Printf("userName:%v", u.Username)
 	if errors.Is(lib.GORMDefaultPool.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
-		log.Printf("username is exists:%v",lib.GORMDefaultPool.Where("username = ?", u.Username).First(&user).Error)
+		log.Printf("username is exists:%v", lib.GORMDefaultPool.Where("username = ?", u.Username).First(&user).Error)
 		return errors.New("用户名已注册"), userInter
 	}
 	// 否则 附加uuid 密码md5简单加密 注册
@@ -40,9 +40,9 @@ func Register(u model.SysUser) (err error, userInter model.SysUser) {
 
 func Login(u *model.SysUser) (err error, userInter *model.SysUser) {
 	var user model.SysUser
-	log.Printf("userPassword:%v",u.Password)
+	log.Printf("userPassword:%v", u.Password)
 	u.Password = utils.MD5V([]byte(u.Password))
-	log.Printf("md5UserPassword:%v",u.Password)
+	log.Printf("md5UserPassword:%v", u.Password)
 	err = lib.GORMDefaultPool.Where("username = ? AND password = ?", u.Username, u.Password).Preload("Authority").First(&user).Error
 	return err, &user
 }
@@ -106,7 +106,7 @@ func DeleteUser(id float64) (err error) {
 //@return: err error, user model.SysUser
 
 func SetUserInfo(reqUser model.SysUser) (err error, user model.SysUser) {
-	err = lib.GORMDefaultPool.Updates(&reqUser).Error
+	err = lib.GORMDefaultPool.Model(&model.SysUser{}).Updates(&reqUser).Error
 	return err, reqUser
 }
 
@@ -130,7 +130,7 @@ func FindUserById(id int) (err error, user *model.SysUser) {
 
 func FindUserByUuid(uuid string) (err error, user *model.SysUser) {
 	var u model.SysUser
-	if err = lib.GORMDefaultPool.Where("`uuid` = ?", uuid).First(&u).Error; err != nil{
+	if err = lib.GORMDefaultPool.Where("`uuid` = ?", uuid).First(&u).Error; err != nil {
 		return errors.New("用户不存在"), &u
 	}
 	return nil, &u

@@ -1,10 +1,11 @@
 package initialize
 
 import (
+	"log"
+
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/gongxianjin/xcent-common/gorm"
 	"github.com/gongxianjin/xcent-common/lib"
-	"log"
 )
 
 var Carbines = []gormadapter.CasbinRule{
@@ -137,15 +138,15 @@ var Carbines = []gormadapter.CasbinRule{
 }
 
 func InitCasbinModel(db *gorm.DB) {
-	if db.Where("p_type = ? AND v0 IN (?)", "p", []string{"888", "8881", "9528"}).Find(&[]gormadapter.CasbinRule{}).RowsAffected >= 127 {
-		log.Println("casbin_rule表的初始数据已存在!")
+	if db.Where("p_type = ? AND v0 IN (?)", "p", []string{"888", "8881", "9528"}).Find(&[]gormadapter.CasbinRule{}).RowsAffected >= 126 {
+		log.Println("casbin_rule表的初始数据已存在! ")
 		return
 	}
 	db = db.Begin()
 	traceCtx := lib.NewTrace()
 	//设置trace信息
 	db = db.SetCtx(traceCtx)
-	for _,api := range Carbines {
+	for _, api := range Carbines {
 		if err := db.Debug().Save(&api).Error; err != nil { // 遇到错误时回滚事务
 			db.Rollback()
 			log.Fatal(err)

@@ -13,7 +13,7 @@ type SysAuthority struct {
 	ParentId        string         `json:"parentId" gorm:"comment:父角色ID"`
 	DataAuthorityId []SysAuthority `json:"dataAuthorityId" gorm:"many2many:sys_data_authority_id;foreignKey:Sys_Data_Authority_Id;"`
 	Children        []SysAuthority `json:"children" gorm:"-"`
-	SysBaseMenus    []SysBaseMenus  `json:"menus" gorm:"many2many:sys_authority_menus;"`
+	SysBaseMenus    []SysBaseMenu  `json:"menus" gorm:"many2many:sys_authority_menus;"`
 }
 
 type Sys_Data_Authority_Id struct {

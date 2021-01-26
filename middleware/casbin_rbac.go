@@ -28,7 +28,7 @@ func CasbinHandler() gin.HandlerFunc {
 		e := service.Casbin()
 		// 判断策略中是否存在
 		success, err := e.Enforce(sub, obj, act)
-		fmt.Println(success)
+		fmt.Println(sub,obj,act,success)
 		if success {
 			c.Next()
 		} else {
