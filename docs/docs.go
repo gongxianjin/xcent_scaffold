@@ -88,7 +88,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.SysAuthority"
+                            "$ref": "#/definitions/dto.SysAuthorityInput"
                         }
                     }
                 ],
@@ -763,6 +763,28 @@ var doc = `{
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "dto.SysAuthorityInput": {
+            "type": "object",
+            "required": [
+                "authorityId",
+                "authorityName",
+                "parentId"
+            ],
+            "properties": {
+                "authorityId": {
+                    "type": "string",
+                    "example": "角色ID"
+                },
+                "authorityName": {
+                    "type": "string",
+                    "example": "角色名"
+                },
+                "parentId": {
+                    "type": "string",
+                    "example": "父角色ID"
                 }
             }
         },

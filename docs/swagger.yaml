@@ -30,6 +30,22 @@ definitions:
     - password
     - username
     type: object
+  dto.SysAuthorityInput:
+    properties:
+      authorityId:
+        example: 角色ID
+        type: string
+      authorityName:
+        example: 角色名
+        type: string
+      parentId:
+        example: 父角色ID
+        type: string
+    required:
+    - authorityId
+    - authorityName
+    - parentId
+    type: object
   middleware.Response:
     properties:
       data:
@@ -258,7 +274,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/model.SysAuthority'
+          $ref: '#/definitions/dto.SysAuthorityInput'
       produces:
       - application/json
       responses:

@@ -97,17 +97,25 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	apiAuthGroup.Use(
 		sessions.Sessions("mysession", store),
 		middleware.RecoveryMiddleware(),
+		middleware.TranslationMiddleware(),
 		middleware.JWTAuth(),
 		middleware.CasbinHandler(),
 	)
 	{
 		InitUserRouter(apiAuthGroup)										// 注册用户路由
 		InitCasbinRouter(apiAuthGroup)                // 权限相关路由
+		InitAuthorityRouter(apiAuthGroup)					  // 注册角色路由
 	}
 
 	//demo
 	v1 := router.Group("/demo")
-	v1.Use(middleware.RecoveryMiddleware(), middleware.RequestLog(), middleware.IPAuthMiddleware(), middleware.TranslationMiddleware(),middleware.JWTAuth(), middleware.CasbinHandler())
+	v1.Use(
+		middleware.RecoveryMiddleware(), 
+		middleware.RequestLog(),
+		middleware.IPAuthMiddleware(), 
+		middleware.TranslationMiddleware(),
+		middleware.JWTAuth(), 
+		middleware.CasbinHandler())
 	{
 		controller.DemoRegister(v1)
 	}

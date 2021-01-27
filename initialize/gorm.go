@@ -17,6 +17,7 @@ func MysqlTables(db *gorm.DB) {
 		model.JwtBlacklist{},
 		model.SysBaseMenu{},
 		model.SysUser{},
+		model.SysOperationRecord{},
 		gormadapter.CasbinRule{},
 	)
 	log.Println("register table success")

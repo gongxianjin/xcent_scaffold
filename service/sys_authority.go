@@ -17,8 +17,8 @@ import (
 //@return: err error, authority model.SysAuthority
 
 func CreateAuthority(auth model.SysAuthority) (err error, authority model.SysAuthority) {
-	var authorityBox model.SysAuthority
-	if !errors.Is(lib.GORMDefaultPool.Where("authority_id = ?", auth.AuthorityId).First(&authorityBox).Error, errors.New("record not found")) {
+	var authorityBox model.SysAuthority  
+	if !lib.GORMDefaultPool.Where("authority_id = ?", auth.AuthorityId).First(&authorityBox).RecordNotFound() {
 		return errors.New("存在相同角色id"), auth
 	}
 	err = lib.GORMDefaultPool.Create(&auth).Error
@@ -33,7 +33,7 @@ func CreateAuthority(auth model.SysAuthority) (err error, authority model.SysAut
 
 func CopyAuthority(copyInfo response.SysAuthorityCopyResponse) (err error, authority model.SysAuthority) {
 	var authorityBox model.SysAuthority
-	if !errors.Is(lib.GORMDefaultPool.Where("authority_id = ?", copyInfo.Authority.AuthorityId).First(&authorityBox).Error, errors.New("record not found")) {
+	if !lib.GORMDefaultPool.Where("authority_id = ?", copyInfo.Authority.AuthorityId).First(&authorityBox).RecordNotFound() {
 		return errors.New("存在相同角色id"), authority
 	}
 	copyInfo.Authority.Children = []model.SysAuthority{}
@@ -73,10 +73,10 @@ func UpdateAuthority(auth model.SysAuthority) (err error, authority model.SysAut
 //@return: err error
 
 func DeleteAuthority(auth *model.SysAuthority) (err error) {
-	if !errors.Is(lib.GORMDefaultPool.Where("authority_id = ?", auth.AuthorityId).First(&model.SysUser{}).Error, errors.New("record not found")) {
+	if !lib.GORMDefaultPool.Where("authority_id = ?", auth.AuthorityId).First(&model.SysUser{}).RecordNotFound() {
 		return errors.New("此角色有用户正在使用禁止删除")
 	}
-	if !errors.Is(lib.GORMDefaultPool.Where("parent_id = ?", auth.AuthorityId).First(&model.SysAuthority{}).Error, errors.New("record not found")) {
+	if !lib.GORMDefaultPool.Where("parent_id = ?", auth.AuthorityId).First(&model.SysAuthority{}).RecordNotFound() {
 		return errors.New("此角色存在子角色不允许删除")
 	}
 	db := lib.GORMDefaultPool.Preload("SysBaseMenus").Where("authority_id = ?", auth.AuthorityId).First(auth)
