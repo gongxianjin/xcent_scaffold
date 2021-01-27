@@ -21,7 +21,7 @@ type SysAuthorityController struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body dto.SysAuthorityInput true "权限id, 权限名, 父角色id"
+// @Param data body dto.CreateAuthorityInput true "权限id, 权限名, 父角色id"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
 // @Router /authority/createAuthority [post]
 func (SysAuthority *SysAuthorityController) CreateAuthority(c *gin.Context) {
@@ -29,7 +29,7 @@ func (SysAuthority *SysAuthorityController) CreateAuthority(c *gin.Context) {
 	// 	response.FailWithMessage(err.Error(), c)
 	// 	return
 	// }
-	params := &dto.SysAuthorityInput{}
+	params := &dto.CreateAuthorityInput{}
 	if err := params.BindingValidParams(c); err != nil {
 		middleware.ResponseError(c, 2001, err)
 		return
@@ -52,20 +52,27 @@ func (SysAuthority *SysAuthorityController) CreateAuthority(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body response.SysAuthorityCopyResponse true "旧角色id, 新权限id, 新权限名, 新父角色id"
+// @Param data body dto.CopyAuthorityInput true "旧角色id, 新权限id, 新权限名, 新父角色id"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"拷贝成功"}"
 // @Router /authority/copyAuthority [post]
 func (SysAuthority *SysAuthorityController) CopyAuthority(c *gin.Context) {
+	// var copyInfo response.SysAuthorityCopyResponse
+	// _ = c.ShouldBindJSON(&copyInfo)
+	// if err := utils.Verify(copyInfo, utils.OldAuthorityVerify); err != nil {
+	// 	response.FailWithMessage(err.Error(), c)
+	// 	return
+	// }
+	params := &dto.CopyAuthorityInput{}
+	if err := params.BindingValidParams(c); err != nil {
+		middleware.ResponseError(c, 2001, err)
+		return
+	}
 	var copyInfo response.SysAuthorityCopyResponse
 	_ = c.ShouldBindJSON(&copyInfo)
-	if err := utils.Verify(copyInfo, utils.OldAuthorityVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	if err := utils.Verify(copyInfo.Authority, utils.AuthorityVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
+	copyInfo.Authority.AuthorityId = params.AuthorityId
+	copyInfo.Authority.AuthorityName = params.AuthorityName
+	copyInfo.Authority.ParentId = params.ParentId
+	copyInfo.OldAuthorityId = params.OldAuthorityId
 	if err, authBack := service.CopyAuthority(copyInfo); err != nil {
 		log.Printf("拷贝失败!:%v", err)
 		response.FailWithMessage("拷贝失败"+err.Error(), c)

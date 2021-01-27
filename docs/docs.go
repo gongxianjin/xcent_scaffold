@@ -50,7 +50,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/response.SysAuthorityCopyResponse"
+                            "$ref": "#/definitions/dto.CopyAuthorityInput"
                         }
                     }
                 ],
@@ -88,7 +88,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.SysAuthorityInput"
+                            "$ref": "#/definitions/dto.CreateAuthorityInput"
                         }
                     }
                 ],
@@ -723,6 +723,55 @@ var doc = `{
         }
     },
     "definitions": {
+        "dto.CopyAuthorityInput": {
+            "type": "object",
+            "required": [
+                "authorityId",
+                "authorityName",
+                "oldAuthorityId",
+                "parentId"
+            ],
+            "properties": {
+                "authorityId": {
+                    "type": "string",
+                    "example": "888"
+                },
+                "authorityName": {
+                    "type": "string",
+                    "example": "test"
+                },
+                "oldAuthorityId": {
+                    "type": "string",
+                    "example": "2"
+                },
+                "parentId": {
+                    "type": "string",
+                    "example": "1"
+                }
+            }
+        },
+        "dto.CreateAuthorityInput": {
+            "type": "object",
+            "required": [
+                "authorityId",
+                "authorityName",
+                "parentId"
+            ],
+            "properties": {
+                "authorityId": {
+                    "type": "string",
+                    "example": "888"
+                },
+                "authorityName": {
+                    "type": "string",
+                    "example": "test"
+                },
+                "parentId": {
+                    "type": "string",
+                    "example": "1"
+                }
+            }
+        },
         "dto.DemoInput": {
             "type": "object",
             "required": [
@@ -763,28 +812,6 @@ var doc = `{
                 },
                 "username": {
                     "type": "string"
-                }
-            }
-        },
-        "dto.SysAuthorityInput": {
-            "type": "object",
-            "required": [
-                "authorityId",
-                "authorityName",
-                "parentId"
-            ],
-            "properties": {
-                "authorityId": {
-                    "type": "string",
-                    "example": "角色ID"
-                },
-                "authorityName": {
-                    "type": "string",
-                    "example": "角色名"
-                },
-                "parentId": {
-                    "type": "string",
-                    "example": "父角色ID"
                 }
             }
         },
@@ -1058,18 +1085,6 @@ var doc = `{
                     "type": "string"
                 },
                 "uuid": {
-                    "type": "string"
-                }
-            }
-        },
-        "response.SysAuthorityCopyResponse": {
-            "type": "object",
-            "properties": {
-                "authority": {
-                    "type": "object",
-                    "$ref": "#/definitions/model.SysAuthority"
-                },
-                "oldAuthorityId": {
                     "type": "string"
                 }
             }
