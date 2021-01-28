@@ -13,7 +13,7 @@ func MysqlTables(db *gorm.DB) {
 		model.SysApi{},
 		model.SysBaseMenuParameter{},
 		model.SysAuthority{},
-		model.Sys_Data_Authority_Id{},
+		model.SysDataAuthorityId{},
 		model.JwtBlacklist{},
 		model.SysBaseMenu{},
 		model.SysUser{},

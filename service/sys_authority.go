@@ -130,7 +130,10 @@ func GetAuthorityInfo(auth model.SysAuthority) (err error, sa model.SysAuthority
 
 func SetDataAuthority(auth model.SysAuthority) error {
 	var s model.SysAuthority
+	//var sd model.Sys_Data_Authority_Id
 	lib.GORMDefaultPool.Preload("DataAuthorityId").First(&s, "authority_id = ?", auth.AuthorityId)
+	//使用原生sql todo
+	//修改结构
 	err := lib.GORMDefaultPool.Model(&s).Association("DataAuthorityId").Replace(&auth.DataAuthorityId).Error
 	return err
 }
