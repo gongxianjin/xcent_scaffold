@@ -26,3 +26,11 @@ type CopyAuthorityInput struct {
 func (params *CopyAuthorityInput) BindingValidParams(c *gin.Context) error {
 	return public.DefaultGetValidParams(c, params)
 }
+
+type  DelAuthorityInput struct {
+	AuthorityId   string `json:"authorityId" form:"authorityId" comment:"权限id" example:"888" validate:"required"` 
+}
+
+func (params *DelAuthorityInput) BindingValidParams(c *gin.Context) error {
+	return public.DefaultGetValidParams(c, params)
+}

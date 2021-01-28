@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -86,16 +87,18 @@ func (SysAuthority *SysAuthorityController) CopyAuthority(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body model.SysAuthority true "删除角色"
+// @Param data body dto.DelAuthorityInput true "删除角色"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /authority/deleteAuthority [post]
 func (SysAuthority *SysAuthorityController) DeleteAuthority(c *gin.Context) {
-	var authority model.SysAuthority
-	_ = c.ShouldBindJSON(&authority)
-	if err := utils.Verify(authority, utils.AuthorityIdVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
+	params := &dto.DelAuthorityInput{}
+	if err := params.BindingValidParams(c); err != nil {
+		middleware.ResponseError(c, 2001, err)
 		return
 	}
+	var authority model.SysAuthority
+	_ = c.ShouldBindJSON(&authority)
+	authority.AuthorityId = params.AuthorityId
 	if err := service.DeleteAuthority(&authority); err != nil { // 删除角色之前需要判断是否有用户正在使用此角色
 		log.Printf("删除失败!:%v", err)
 		response.FailWithMessage("删除失败"+err.Error(), c)
@@ -166,6 +169,7 @@ func (SysAuthority *SysAuthorityController) GetAuthorityList(c *gin.Context) {
 func (SysAuthority *SysAuthorityController) SetDataAuthority(c *gin.Context) {
 	var auth model.SysAuthority
 	_ = c.ShouldBindJSON(&auth)
+	fmt.Println(auth.AuthorityId,auth.DataAuthorityId,auth.AuthorityName)
 	if err := utils.Verify(auth, utils.AuthorityIdVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
