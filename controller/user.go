@@ -283,3 +283,24 @@ func (demo *UserController) SetUserInfo(c *gin.Context) {
 	}
 }
 
+// 从Gin的Context中获取从jwt解析出来的用户UUID
+func getUserUuid(c *gin.Context) string {
+	if claims, exists := c.Get("claims"); !exists { 
+		log.Printf("从Gin的Context中获取从jwt解析出来的用户UUID失败, 请检查路由是否使用jwt中间件")
+		return ""
+	} else {
+		waitUse := claims.(*request.CustomClaims)
+		return waitUse.UUID.String()
+	}
+}
+
+// 从Gin的Context中获取从jwt解析出来的用户角色id
+func getUserAuthorityId(c *gin.Context) string {
+	if claims, exists := c.Get("claims"); !exists {
+		log.Printf("从Gin的Context中获取从jwt解析出来的用户UUID失败, 请检查路由是否使用jwt中间件")
+		return ""
+	} else {
+		waitUse := claims.(*request.CustomClaims)
+		return waitUse.AuthorityId
+	}
+}

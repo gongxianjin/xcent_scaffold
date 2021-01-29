@@ -126,7 +126,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.SysAuthority"
+                            "$ref": "#/definitions/dto.DelAuthorityInput"
                         }
                     }
                 ],
@@ -217,7 +217,7 @@ var doc = `{
             }
         },
         "/authority/updateAuthority": {
-            "post": {
+            "put": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -769,6 +769,18 @@ var doc = `{
                 "parentId": {
                     "type": "string",
                     "example": "1"
+                }
+            }
+        },
+        "dto.DelAuthorityInput": {
+            "type": "object",
+            "required": [
+                "authorityId"
+            ],
+            "properties": {
+                "authorityId": {
+                    "type": "string",
+                    "example": "888"
                 }
             }
         },

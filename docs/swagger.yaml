@@ -36,6 +36,14 @@ definitions:
     - authorityName
     - parentId
     type: object
+  dto.DelAuthorityInput:
+    properties:
+      authorityId:
+        example: "888"
+        type: string
+    required:
+    - authorityId
+    type: object
   dto.DemoInput:
     properties:
       age:
@@ -309,7 +317,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/model.SysAuthority'
+          $ref: '#/definitions/dto.DelAuthorityInput'
       produces:
       - application/json
       responses:
@@ -369,7 +377,7 @@ paths:
       tags:
       - Authority
   /authority/updateAuthority:
-    post:
+    put:
       consumes:
       - application/json
       parameters:
