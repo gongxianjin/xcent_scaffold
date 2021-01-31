@@ -9,6 +9,7 @@ require (
 	github.com/casbin/casbin/v2 v2.19.8
 	github.com/casbin/gorm-adapter/v3 v3.0.4
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/garyburd/redigo v1.6.2
 	github.com/gin-gonic/contrib v0.0.0-20201101042839-6a891bf89f19
 	github.com/gin-gonic/gin v1.6.3
@@ -17,19 +18,29 @@ require (
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/protobuf v1.4.2 // indirect
-	github.com/gongxianjin/xcent-common v0.0.0-20201230081359-6f75ee6b9f15
+	github.com/gongxianjin/xcent-common v1.0.0
 	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
+	github.com/magiconair/properties v1.8.4 // indirect
+	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/mojocn/base64Captcha v1.3.1
 	github.com/onsi/ginkgo v1.7.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
+	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/satori/go.uuid v1.2.0
+	github.com/spf13/afero v1.5.1 // indirect
+	github.com/spf13/cast v1.3.1 // indirect
+	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
+	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
+	golang.org/x/text v0.3.5 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/go-playground/validator.v9 v9.31.0
+	gopkg.in/ini.v1 v1.62.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/gorm v1.20.7
 )
