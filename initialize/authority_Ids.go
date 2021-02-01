@@ -1,8 +1,9 @@
 package initialize
 
 import (
-	"github.com/gongxianjin/xcent_scaffold/model"
 	"log"
+
+	"github.com/gongxianjin/xcent_scaffold/model"
 
 	"github.com/gongxianjin/xcent-common/gorm"
 )
@@ -25,8 +26,8 @@ func InitSysDataAuthorityId(db *gorm.DB) {
 		log.Println("sys_data_authority_id表的初始数据已存在!")
 		return
 	}
-	db = db.Begin() 
-		//去掉sys_data_authority_id中sys_authority_authority_id索引
+	db = db.Begin()
+	//去掉sys_data_authority_id中sys_authority_authority_id索引
 	//if err := db.Exec("ALTER TABLE `sys_data_authority_id` DROP INDEX `sys_authority_authority_id`;").Error; err != nil {
 	//	log.Println("删除索引sys_authority_authority_id失败!")
 	//	return

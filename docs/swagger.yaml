@@ -91,17 +91,11 @@ definitions:
     properties:
       apiGroup:
         type: string
-      createdAt:
-        type: string
       description:
         type: string
-      id:
-        type: integer
       method:
         type: string
       path:
-        type: string
-      updatedAt:
         type: string
     type: object
   model.SysAuthority:
@@ -283,14 +277,10 @@ definitions:
     properties:
       apiGroup:
         type: string
-      createdAt:
-        type: string
       desc:
         type: boolean
       description:
         type: string
-      id:
-        type: integer
       method:
         type: string
       orderKey:
@@ -300,8 +290,6 @@ definitions:
       pageSize:
         type: integer
       path:
-        type: string
-      updatedAt:
         type: string
     type: object
   request.SetUserAuth:

@@ -105,7 +105,8 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 		InitUserRouter(apiAuthGroup)										// 注册用户路由
 		InitCasbinRouter(apiAuthGroup)                // 权限相关路由
 		InitAuthorityRouter(apiAuthGroup)					  // 注册角色路由
-	  InitMenuRouter(apiAuthGroup)                  // 注册menu路由
+		InitMenuRouter(apiAuthGroup)                  // 注册menu路由
+    InitApiRouter(apiAuthGroup)                       // 注册功能api路由
 	}
 
 	//demo

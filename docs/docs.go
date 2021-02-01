@@ -1406,22 +1406,13 @@ var doc = `{
                 "apiGroup": {
                     "type": "string"
                 },
-                "createdAt": {
-                    "type": "string"
-                },
                 "description": {
                     "type": "string"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "method": {
                     "type": "string"
                 },
                 "path": {
-                    "type": "string"
-                },
-                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -1700,17 +1691,11 @@ var doc = `{
                 "apiGroup": {
                     "type": "string"
                 },
-                "createdAt": {
-                    "type": "string"
-                },
                 "desc": {
                     "type": "boolean"
                 },
                 "description": {
                     "type": "string"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "method": {
                     "type": "string"
@@ -1725,9 +1710,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "path": {
-                    "type": "string"
-                },
-                "updatedAt": {
                     "type": "string"
                 }
             }

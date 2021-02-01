@@ -11,6 +11,10 @@ import (
 	"github.com/gongxianjin/xcent_scaffold/utils"
 )
 
+type SysApiController struct {
+}
+
+
 // @Tags SysApicontroller
 // @Summary 创建基础api
 // @Security ApiKeyAuth
@@ -19,7 +23,7 @@ import (
 // @Param data body model.SysApi true "api路径, api中文描述, api组, 方法"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
 // @Router /api/createApi [post]
-func CreateApi(c *gin.Context) {
+func (SysApi *SysApiController)CreateApi(c *gin.Context) {
 	var api model.SysApi
 	_ = c.ShouldBindJSON(&api)
 	if err := utils.Verify(api, utils.ApiVerify); err != nil {
@@ -42,10 +46,10 @@ func CreateApi(c *gin.Context) {
 // @Param data body model.SysApi true "ID"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /api/deleteApi [post]
-func DeleteApi(c *gin.Context) {
+func  (SysApi *SysApiController)DeleteApi(c *gin.Context) {
 	var api model.SysApi
 	_ = c.ShouldBindJSON(&api)
-	if err := utils.Verify(api.BaseModel, utils.IdVerify); err != nil {
+	if err := utils.Verify(api, utils.IdVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -65,7 +69,7 @@ func DeleteApi(c *gin.Context) {
 // @Param data body request.SearchApiParams true "分页获取API列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /api/getApiList [post]
-func GetApiList(c *gin.Context) {
+func  (SysApi *SysApiController)GetApiList(c *gin.Context) {
 	var pageInfo request.SearchApiParams
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err := utils.Verify(pageInfo.PageInfo, utils.PageInfoVerify); err != nil {
@@ -93,7 +97,7 @@ func GetApiList(c *gin.Context) {
 // @Param data body request.GetById true "根据id获取api"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /api/getApiById [post]
-func GetApiById(c *gin.Context) {
+func  (SysApi *SysApiController)GetApiById(c *gin.Context) {
 	var idInfo request.GetById
 	_ = c.ShouldBindJSON(&idInfo)
 	if err := utils.Verify(idInfo, utils.IdVerify); err != nil {
@@ -117,7 +121,7 @@ func GetApiById(c *gin.Context) {
 // @Param data body model.SysApi true "api路径, api中文描述, api组, 方法"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
 // @Router /api/updateApi [post]
-func UpdateApi(c *gin.Context) {
+func  (SysApi *SysApiController)UpdateApi(c *gin.Context) {
 	var api model.SysApi
 	_ = c.ShouldBindJSON(&api)
 	if err := utils.Verify(api, utils.ApiVerify); err != nil {
@@ -139,7 +143,7 @@ func UpdateApi(c *gin.Context) {
 // @Produce application/json
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /api/getAllApis [post]
-func GetAllApis(c *gin.Context) {
+func  (SysApi *SysApiController)GetAllApis(c *gin.Context) {
 	if err, apis := service.GetAllApis(); err != nil {
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("获取失败", c)

@@ -1390,22 +1390,13 @@
                 "apiGroup": {
                     "type": "string"
                 },
-                "createdAt": {
-                    "type": "string"
-                },
                 "description": {
                     "type": "string"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "method": {
                     "type": "string"
                 },
                 "path": {
-                    "type": "string"
-                },
-                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -1684,17 +1675,11 @@
                 "apiGroup": {
                     "type": "string"
                 },
-                "createdAt": {
-                    "type": "string"
-                },
                 "desc": {
                     "type": "boolean"
                 },
                 "description": {
                     "type": "string"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "method": {
                     "type": "string"
@@ -1709,9 +1694,6 @@
                     "type": "integer"
                 },
                 "path": {
-                    "type": "string"
-                },
-                "updatedAt": {
                     "type": "string"
                 }
             }
