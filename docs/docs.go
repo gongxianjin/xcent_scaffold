@@ -40,7 +40,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "SysApicontroller"
+                    "SysApi"
                 ],
                 "summary": "创建基础api",
                 "parameters": [

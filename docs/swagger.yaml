@@ -329,7 +329,7 @@ paths:
       - ApiKeyAuth: []
       summary: 创建基础api
       tags:
-      - SysApicontroller
+      - SysApi
   /api/deleteApi:
     post:
       consumes:

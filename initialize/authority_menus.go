@@ -74,16 +74,16 @@ var AuthorityMenus = []SysAuthorityMenus{
 }
 
 func InitSysAuthorityMenus(db *gorm.DB) {
-	if db.Where("sys_authority_authority_id IN (?) ", []string{"888", "8881", "9528"}).Find(&[]SysAuthorityMenus{}).RowsAffected == 59 {
+	if db.Where("sys_authority_authority_id IN (?) ", []string{"888", "8881", "9528"}).Find(&[]SysAuthorityMenus{}).RowsAffected >= 59 {
 		log.Println("sys_authority_menus表的初始数据已存在!")
 		return
 	}
 	db = db.Begin()
 	//去掉sys_data_authority_id中sys_authority_authority_id索引
-	// if err := db.Exec("ALTER TABLE`sys_authority_menus` DROP INDEX `sys_authority_authority_id`;").Error; err != nil {
-	// 	log.Println("删除索引sys_authority_authority_id失败!")
-	// 	return
-	// }
+	if err := db.Exec("ALTER TABLE`sys_authority_menus` DROP INDEX `sys_authority_authority_id`;").Error; err != nil {
+		log.Println("删除索引sys_authority_authority_id失败!")
+		return
+	}
 	for _, api := range AuthorityMenus {
 		if err := db.Create(&api).Error; err != nil { // 遇到错误时回滚事务
 			db.Rollback()
