@@ -312,7 +312,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: api路径, api中文描述, api组, 方法
+      - description: ID修改ID,api路径, api中文描述, api组, 方法
         in: body
         name: data
         required: true
@@ -335,7 +335,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: ID
+      - description: ID,api路径, 方法
         in: body
         name: data
         required: true

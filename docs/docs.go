@@ -45,7 +45,7 @@ var doc = `{
                 "summary": "创建基础api",
                 "parameters": [
                     {
-                        "description": "api路径, api中文描述, api组, 方法",
+                        "description": "ID修改ID,api路径, api中文描述, api组, 方法",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -83,7 +83,7 @@ var doc = `{
                 "summary": "删除api",
                 "parameters": [
                     {
-                        "description": "ID",
+                        "description": "ID,api路径, 方法",
                         "name": "data",
                         "in": "body",
                         "required": true,
