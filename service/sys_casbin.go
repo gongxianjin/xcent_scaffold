@@ -40,6 +40,20 @@ func UpdateCasbin(authorityId string, casbinInfos []request.CasbinInfo) error {
 	return nil
 }
 
+//@author: [piexlmax](https://github.com/piexlmax)
+//@function: UpdateCasbinApi
+//@description: API更新随动
+//@param: oldPath string, newPath string, oldMethod string, newMethod string
+//@return: error
+
+func UpdateCasbinApi(oldPath string, newPath string, oldMethod string, newMethod string) error {
+	err := lib.GORMDefaultPool.Table("casbin_rule").Model(&model.CasbinModel{}).Where("v1 = ? AND v2 = ?", oldPath, oldMethod).Updates(map[string]interface{}{
+		"v1": newPath,
+		"v2": newMethod,
+	}).Error
+	return err
+}
+
 
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: GetPolicyPathByAuthorityId
