@@ -50,73 +50,37 @@ func UpdateBaseMenu(menu model.SysBaseMenu) (err error) {
 	upDateMap["title"] = menu.Title
 	upDateMap["icon"] = menu.Icon
 	upDateMap["sort"] = menu.Sort
-
-// 	tx =  lib.GORMDefaultPool.Begin()
-// 	db := tx.Where("id = ?", menu.ID).Find(&oldMenu)
-// 	if oldMenu.Name != menu.Name {
-// 		if !errors.Is(tx.Where("id <> ? AND name = ?", menu.ID, menu.Name).First(&model.SysBaseMenu{}).Error, gorm.ErrRecordNotFound) {
-// 			log.Printf("存在相同name修改失败")
-// 			tx.Rollback()
-// 			return errors.New("存在相同name修改失败")
-// 		}
-// 	}
-// 	txErr := tx.Unscoped().Delete(&model.SysBaseMenuParameter{}, "sys_base_menu_id = ?", menu.ID).Error
-// 	if txErr != nil { 
-// 		tx.Rollback()
-// 		log.Printf("修改失败:%v",txErr.Error())
-// 		return txErr
-// 	}
-// 	if len(menu.Parameters) > 0 {
-// 		for k, _ := range menu.Parameters {
-// 			menu.Parameters[k].SysBaseMenuID = menu.ID
-// 		}
-// 		txErr = tx.Create(&menu.Parameters).Error
-// 		if txErr != nil { 
-// 			tx.Rollback()
-// 			log.Printf("修改失败:%v",txErr.Error())
-// 			return txErr
-// 		}
-// 	}
-
-// 	txErr = db.Updates(upDateMap).Error
-// 	if txErr != nil { 
-// 		tx.Rollback()
-// 		log.Printf("修改失败:%v",txErr.Error())
-// 		return txErr
-// 	}
-// 	return nil
-//  }
-
+		
 	err =   lib.GORMDefaultPool.Transaction(func(tx *gorm.DB) error {
-		db := tx.Where("id = ?", menu.ID).Find(&oldMenu)
-		if oldMenu.Name != menu.Name {
-			if !errors.Is(tx.Where("id <> ? AND name = ?", menu.ID, menu.Name).First(&model.SysBaseMenu{}).Error, gorm.ErrRecordNotFound) {
-				log.Printf("存在相同name修改失败")
-				return errors.New("存在相同name修改失败")
-			}
+	db := tx.Where("id = ?", menu.ID).Find(&oldMenu)
+	if oldMenu.Name != menu.Name {
+		if !errors.Is(tx.Where("id <> ? AND name = ?", menu.ID, menu.Name).First(&model.SysBaseMenu{}).Error, gorm.ErrRecordNotFound) {
+		log.Printf("存在相同name修改失败")
+			return errors.New("存在相同name修改失败")
 		}
-		txErr := tx.Unscoped().Delete(&model.SysBaseMenuParameter{}, "sys_base_menu_id = ?", menu.ID).Error
+	}
+	txErr := tx.Unscoped().Delete(&model.SysBaseMenuParameter{}, "sys_base_menu_id = ?", menu.ID).Error
+	if txErr != nil { 
+		log.Printf("修改失败:%v",txErr.Error())
+		return txErr
+	}
+	if len(menu.Parameters) > 0 {
+		for k, _ := range menu.Parameters {
+			menu.Parameters[k].SysBaseMenuID = menu.ID
+		}
+		txErr = tx.Create(&menu.Parameters).Error
 		if txErr != nil { 
 			log.Printf("修改失败:%v",txErr.Error())
 			return txErr
 		}
-		if len(menu.Parameters) > 0 {
-			for k, _ := range menu.Parameters {
-				menu.Parameters[k].SysBaseMenuID = menu.ID
-			}
-			txErr = tx.Create(&menu.Parameters).Error
-			if txErr != nil { 
-				log.Printf("修改失败:%v",txErr.Error())
-				return txErr
-			}
-		}
+	}
 
-		txErr = db.Updates(upDateMap).Error
-		if txErr != nil { 
-			log.Printf("修改失败:%v",txErr.Error())
-			return txErr
-		}
-		return nil
+	txErr = db.Updates(upDateMap).Error
+	if txErr != nil { 
+		log.Printf("修改失败:%v",txErr.Error())
+		return txErr
+	}
+	return nil
 	})
 	return err
 }

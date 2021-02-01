@@ -20,8 +20,7 @@ type SysAuthority struct {
 //	Data_Authority_Id_Authority_Id string
 //}
 
-
 type SysDataAuthorityId struct {
-	SysAuthorityAuthorityId string    `json:"sys_authority_authority_id" gorm:"primary_key"`
+	SysAuthorityAuthorityId    string `json:"sys_authority_authority_id" gorm:"primary_key"`
 	DataAuthorityIdAuthorityId string `json:"data_authority_id_authority_id" gorm:"primary_key"`
 }

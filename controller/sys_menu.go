@@ -77,7 +77,7 @@ func (SysMenu *SysMenuController)AddMenuAuthority(c *gin.Context) {
 // @Produce application/json
 // @Param data body request.GetAuthorityId true "角色ID"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /menu/GetMenuAuthority [post]
+// @Router /menu/getMenuAuthority [post]
 func (SysMenu *SysMenuController)GetMenuAuthority(c *gin.Context) {
 	var param request.GetAuthorityId
 	_ = c.ShouldBindJSON(&param)
