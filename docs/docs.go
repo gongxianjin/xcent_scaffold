@@ -1509,6 +1509,9 @@ var doc = `{
                 "path": {
                     "type": "string"
                 },
+                "show": {
+                    "type": "boolean"
+                },
                 "sort": {
                     "type": "integer"
                 },

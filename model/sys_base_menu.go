@@ -24,6 +24,7 @@ type Meta struct {
 	DefaultMenu bool   `json:"defaultMenu" gorm:"comment:是否是基础路由（开发中）"`
 	Title       string `json:"title" gorm:"comment:菜单名"`
 	Icon        string `json:"icon" gorm:"comment:菜单图标"`
+  Show  bool   `json:"show" gorm:"comment:是否显示"`
 }
 
 type SysBaseMenuParameter struct {
