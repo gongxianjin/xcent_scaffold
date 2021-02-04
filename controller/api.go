@@ -19,10 +19,10 @@ import (
 	"github.com/gongxianjin/xcent-common/lib"
 	"github.com/gongxianjin/xcent_scaffold/dao"
 	"github.com/gongxianjin/xcent_scaffold/dto"
-	"github.com/gongxianjin/xcent_scaffold/middleware"
 	"github.com/gongxianjin/xcent_scaffold/model"
 	"github.com/gongxianjin/xcent_scaffold/model/request"
 	"github.com/gongxianjin/xcent_scaffold/model/response"
+	"github.com/gongxianjin/xcent_scaffold/middleware"
 	"github.com/gongxianjin/xcent_scaffold/service"
 	"github.com/mojocn/base64Captcha"
 )
@@ -100,11 +100,16 @@ func tokenNext(c *gin.Context, user model.SysUser) {
 	}
 	if !lib.GetBoolConf("base.system.use-multipoint") {
 		log.Printf("gen Token to no-multipoint:%v", token)
-		middleware.ResponseSuccess(c, response.LoginResponse{
+		//middleware.ResponseSuccess(c, response.LoginResponse{
+		//	User:      user,
+		//	Token:     token,
+		//	ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+		//})
+		response.OkWithDetailed(response.LoginResponse{
 			User:      user,
 			Token:     token,
 			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
-		})
+		}, "登录成功", c)
 		return
 	}
 	if err, jwtStr := service.GetRedisJWT(user.Username); err == redis.Nil {
@@ -130,7 +135,8 @@ func tokenNext(c *gin.Context, user model.SysUser) {
 			return
 		}
 		log.Printf("gen Token to black:%v", token)
-		middleware.ResponseSuccess(c, "")
+		//middleware.ResponseSuccess(c, "")
+		response.OkWithDetailed("", "登录成功", c)
 	}
 }
 
