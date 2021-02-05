@@ -76,6 +76,21 @@ func GetUserInfoList(info request.PageInfo) (err error, list interface{}, total 
 	return err, userList, total
 }
 
+
+//@author: [victor](https://github.com/piexlmax)
+//@function: GetUserInfo
+//@description: 分页获取数据
+//@param: uuid string
+//@return: err error, list interface{}
+
+func GetUserInfo(uuid string) (err error, list interface{}) { 
+	db := lib.GORMDefaultPool.Model(&model.SysUser{})
+	var userList []model.SysUser
+	err = db.Where("uuid = ?", uuid).Preload("Authority").Find(&userList).Error
+	return err, userList
+}
+
+
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: SetUserAuthority
 //@description: 设置一个用户的权限

@@ -23,6 +23,8 @@ func InitUserRouter(router *gin.RouterGroup) {
 		BaseRouter.POST("/user/setUserAuthority", user.SetUserAuthority) // 设置用户权限
 		BaseRouter.DELETE("/user/deleteUser", user.DeleteUser)           // 删除用户
 		BaseRouter.PUT("/user/setUserInfo", user.SetUserInfo)            // 设置用户信息
+		BaseRouter.GET("/user/info", user.GetUserInfo)            //获取用户信息
+		BaseRouter.POST("/user/logout", user.LoginOut)            //退出登录
 
 	}
 }
