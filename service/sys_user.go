@@ -86,7 +86,7 @@ func GetUserInfoList(info request.PageInfo) (err error, list interface{}, total 
 func GetUserInfo(uuid string) (err error, list interface{}) { 
 	db := lib.GORMDefaultPool.Model(&model.SysUser{})
 	var userList []model.SysUser
-	err = db.Where("uuid = ?", uuid).Preload("Authority").Find(&userList).Error
+	err = db.Where("uuid = ?", uuid).Preload("Authority").First(&userList).Error
 	return err, userList
 }
 
