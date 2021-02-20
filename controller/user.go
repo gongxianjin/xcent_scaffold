@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -101,6 +102,7 @@ func (demo *UserController) GetUserInfo(c *gin.Context) {
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("获取失败", c)
 	} else {
+		fmt.Println(ReqUser)
 		response.OkWithDetailed(gin.H{"userInfo": ReqUser}, "设置成功", c)
 	}
 }
