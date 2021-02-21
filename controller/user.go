@@ -103,6 +103,7 @@ func (demo *UserController) GetUserInfo(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 	} else {
 		fmt.Println(ReqUser)
+		//todo 格式化输出字段
 		response.OkWithDetailed(gin.H{"userInfo": ReqUser}, "设置成功", c)
 	}
 }
