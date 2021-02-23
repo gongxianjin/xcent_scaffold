@@ -81,13 +81,12 @@ func GetUserInfoList(info request.PageInfo) (err error, list interface{}, total 
 //@function: GetUserInfo
 //@description: 分页获取数据
 //@param: uuid string
-//@return: err error, list interface{}
+//@return: err error, userInfo model.SysUser
 
-func GetUserInfo(uuid string) (err error, list interface{}) { 
+func GetUserInfo(uuid string) (err error, userInfo model.SysUser) { 
 	db := lib.GORMDefaultPool.Model(&model.SysUser{})
-	var userList model.SysUser
-	err = db.Where("uuid = ?", uuid).Preload("Authority").First(&userList).Error
-	return err, userList
+	err = db.Where("uuid = ?", uuid).Preload("Authority").First(&userInfo).Error
+	return err, userInfo
 }
 
 

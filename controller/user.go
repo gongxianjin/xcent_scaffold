@@ -1,11 +1,13 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"strconv"
 	"strings"
 
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gongxianjin/xcent-common/lib"
 	"github.com/gongxianjin/xcent_scaffold/dao"
@@ -16,7 +18,6 @@ import (
 	"github.com/gongxianjin/xcent_scaffold/model/response"
 	"github.com/gongxianjin/xcent_scaffold/service"
 	"github.com/gongxianjin/xcent_scaffold/utils"
-	"github.com/gin-gonic/contrib/sessions"
 )
 
 type UserController struct {
@@ -103,8 +104,45 @@ func (demo *UserController) GetUserInfo(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 	} else {
 		fmt.Println(ReqUser)
-		//todo 格式化输出字段
-		response.OkWithDetailed(gin.H{"userInfo": ReqUser}, "设置成功", c)
+		//todo 格式化输出字段   
+		// response.OkWithDetailed(response.SysUserInfoResponse{
+		// 	Id: ReqUser.ID,
+		// 	Role: ReqUser.Authority,
+		// 	RoleId: ReqUser.AuthorityId,
+		// }, "设置成功", c)
+
+		// roleObj := `{"id": "admin","name": "管理员","describe": "拥有所有权限","status": 1, "creatorId": "system","createTime": 1497160610259,"deleted": 0,"permissions": [{"roleId": "admin","permissionId": "dashboard","permissionName": "仪表盘","actions": "[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]","actionEntitySet": [{"action": "add","describe": "新增","defaultCheck": false}, {"action": "query","describe": "查询","defaultCheck": false}, {"action": "get","describe": "详情","defaultCheck": false}, {"action": "update","describe": "修改","defaultCheck": false}, {"action": "delete","describe": "删除","defaultCheck": false}],"actionList": null,"dataAccess": null}}`
+		roleObj := `{"id": "admin","name": "管理员","describe": "拥有所有权限","status": 1, "creatorId": "system","createTime": 1497160610259,"deleted": 0,
+		"permissions": [
+		{"roleId": "admin","permissionId": "dashboard","permissionName": "仪表盘",
+		"actions": [{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}],
+		"actionEntitySet":[{"action": "add","describe": "新增","defaultCheck": false}, {"action": "query","describe": "查询","defaultCheck": false}, {"action": "get","describe": "详情","defaultCheck": false}, {"action": "update","describe": "修改","defaultCheck": false}, {"action": "delete","describe": "删除","defaultCheck": false}],"actionList": null,"dataAccess": null}
+		,{"roleId":"admin","permissionId":"exception","permissionName": "异常页面权限",
+		"actions": [{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}],
+		"actionEntitySet":[{"action": "add", "describe": "新增", "defaultCheck": false}, {"action": "query","describe": "查询","defaultCheck": false}, {"action": "get","describe": "详情","defaultCheck": false}, {"action": "update","describe": "修改","defaultCheck": false}, {"action": "delete","describe": "删除","defaultCheck": false}],"actionList": null,"dataAccess": null}
+		]}`
+		var jsonData map[string]interface{} 
+		if e := json.Unmarshal([]byte(roleObj), &jsonData); e != nil { 
+				log.Fatalf("%s",e.Error());
+		}  
+		fmt.Println(jsonData)
+		response.OkWithDetailed(gin.H{ 
+		"id": "4291d7da9005377ec9aec4a71ea837f",
+    "name": "天野远子",
+    "username": "admin",
+    "password": "",
+    "avatar": "/avatar2.jpg",
+    "status": 1,
+    "telephone": "",
+    "lastLoginIp": "27.154.74.117",
+    "lastLoginTime": 1534837621348,
+    "creatorId": "admin",
+    "createTime": 1497160610259,
+    "merchantCode": "TLif2btpzg079h15bk",
+    "deleted": 0,
+    "roleId": "admin",
+    "role": jsonData,
+		}, "设置成功", c)
 	}
 }
 
