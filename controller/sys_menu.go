@@ -1,6 +1,8 @@
 package controller
 
-import ( 
+import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"github.com/gin-gonic/gin" 
 	"github.com/gongxianjin/xcent_scaffold/model"
@@ -43,7 +45,20 @@ func (SysMenu *SysMenuController)GetBaseMenuTree(c *gin.Context) {
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.SysBaseMenusResponse{Menus: menus}, "获取成功", c)
+		//response.OkWithDetailed(response.SysBaseMenusResponse{Menus: menus}, "获取成功", c)
+		roleObj := `{"menu": [
+						{"name":"dashboard","parentId": 0,"id": 1,"meta": { "keepAlive": false, "defaultMenu": false, "icon": "dashboard", "title": "测试" }, "component": "RouteView", "redirect": "/dashboard/workplace"},
+						{"name":"workplace","parentId": 1,"id": 2,"meta": { "keepAlive": false, "defaultMenu": false, "icon": "dashboard", "title": "二级页面" }, "component": "Workplace", "redirect": ""}
+					]}`
+		var jsonData map[string]interface{}
+		if e := json.Unmarshal([]byte(roleObj), &jsonData); e != nil {
+			log.Fatalf("%s",e.Error())
+		}
+		fmt.Println(menus)
+		fmt.Println(jsonData)
+		response.OkWithDetailed(gin.H{
+			"menu" : jsonData,
+		}, "设置成功", c)
 	}
 }
 
