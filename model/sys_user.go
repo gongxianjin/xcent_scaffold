@@ -16,7 +16,7 @@ type SysUser struct {
 	NickName    string       `json:"nickName" gorm:"default:'系统用户';comment:用户昵称" `
 	HeaderImg   string       `json:"headerImg" gorm:"comment:用户头像"`
 	Authority   SysAuthority `json:"authority" gorm:"foreignKey:AuthorityId;references:AuthorityId;comment:用户角色"`
-	AuthorityId string       `json:"authorityId" gorm:"comment:用户角色ID"`
+	AuthorityId string       `json:"authorityId" gorm:"default:888;comment:用户角色ID"`
 }
 
 type BaseModel struct {
