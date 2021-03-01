@@ -20,9 +20,9 @@ func getMenuTreeMap(authorityId string) (err error, treeMap map[string][]model.S
 	var allMenus []model.SysMenu
 	treeMap = make(map[string][]model.SysMenu)
 	err = lib.GORMDefaultPool.Where("authority_id = ?", authorityId).Order("sort").Preload("Parameters").Find(&allMenus).Error
-	for _, v := range allMenus {
-		treeMap[v.ParentId] = append(treeMap[v.ParentId], v)
-	}
+	//for _, v := range allMenus {
+	//	treeMap[v.ParentId] = append(treeMap[v.ParentId], v)
+	//}
 	return err, treeMap
 }
 
@@ -107,9 +107,9 @@ func getBaseMenuTreeMap() (err error, treeMap map[string][]model.SysBaseMenu) {
 	var allMenus []model.SysBaseMenu
 	treeMap = make(map[string][]model.SysBaseMenu)
 	err = lib.GORMDefaultPool.Order("sort").Preload("Parameters").Find(&allMenus).Error
-	for _, v := range allMenus {
-		treeMap[v.ParentId] = append(treeMap[v.ParentId], v)
-	}
+	//for _, v := range allMenus {
+	//	treeMap[v.ParentId] = append(treeMap[v.ParentId], v)
+	//}
 	return err, treeMap
 }
 
@@ -126,6 +126,20 @@ func GetBaseMenuTree() (err error, menus []model.SysBaseMenu) {
 	}
 	return err, menus
 }
+
+
+//@author: [piexlmax](https://github.com/piexlmax)
+//@function: GetBaseMenuTree
+//@description: 获取基础路由树
+//@return: err error, menus []model.SysBaseMenu
+
+func GetBaseMenu() (err error, menus []model.SysBaseMenu) {
+	var allMenus []model.SysBaseMenu
+	err = lib.GORMDefaultPool.Order("sort").Preload("Parameters").Find(&allMenus).Error
+	return err, allMenus
+}
+
+
 
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: AddMenuAuthority

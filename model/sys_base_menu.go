@@ -7,7 +7,7 @@ import (
 type SysBaseMenu struct {
 	BaseModel
 	MenuLevel     uint   `json:"-"`
-	ParentId      string `json:"parentId" gorm:"comment:父菜单ID"`
+	ParentId      int `json:"parentId" gorm:"comment:父菜单ID"`
 	Path          string `json:"path" gorm:"comment:路由path"`
 	Name          string `json:"name" gorm:"comment:路由name"`
 	Hidden        bool   `json:"hidden" gorm:"comment:是否在列表隐藏"`

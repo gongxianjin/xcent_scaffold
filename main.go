@@ -30,8 +30,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	initialize.MysqlTables(db)
-	initialize.InitMysqlData(db)
+	if lib.GetStringConf("base.base.debug_mode") == "debug" {
+		initialize.MysqlTables(db)
+		initialize.InitMysqlData(db)
+	}
 	router.HttpServerRun()
 
 	quit := make(chan os.Signal)

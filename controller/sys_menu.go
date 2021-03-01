@@ -1,15 +1,13 @@
 package controller
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
-	"github.com/gin-gonic/gin" 
+	"github.com/gin-gonic/gin"
 	"github.com/gongxianjin/xcent_scaffold/model"
 	"github.com/gongxianjin/xcent_scaffold/model/request"
 	"github.com/gongxianjin/xcent_scaffold/model/response"
 	"github.com/gongxianjin/xcent_scaffold/service"
 	"github.com/gongxianjin/xcent_scaffold/utils"
+	"log"
 )
 
 
@@ -41,24 +39,46 @@ func (SysMenu *SysMenuController)GetMenu(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /menu/getBaseMenuTree [post]
 func (SysMenu *SysMenuController)GetBaseMenuTree(c *gin.Context) {
-	if err, menus := service.GetBaseMenuTree(); err != nil { 
+	if err, menus := service.GetBaseMenu(); err != nil {
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("获取失败", c)
 	} else {
-		//response.OkWithDetailed(response.SysBaseMenusResponse{Menus: menus}, "获取成功", c)
-		roleObj := `{"menu": [
-						{"name":"dashboard","parentId": 0,"id": 1,"meta": { "keepAlive": false, "defaultMenu": false, "icon": "dashboard", "title": "测试" }, "component": "RouteView", "redirect": "/dashboard/workplace"},
-						{"name":"workplace","parentId": 1,"id": 2,"meta": { "keepAlive": false, "defaultMenu": false, "icon": "dashboard", "title": "二级页面" }, "component": "Workplace", "redirect": ""}
-					]}`
-		var jsonData map[string]interface{}
-		if e := json.Unmarshal([]byte(roleObj), &jsonData); e != nil {
-			log.Fatalf("%s",e.Error())
-		}
-		fmt.Println(menus)
-		fmt.Println(jsonData)
-		response.OkWithDetailed(gin.H{
-			"menu" : jsonData,
-		}, "设置成功", c)
+		response.OkWithDetailed(response.SysBaseMenusResponse{Menus: menus}, "获取成功", c)
+		//roleObj := `{"menu":[
+		//				{"name":"workplace","parentId": 1,"id": 2,"meta": { "keepAlive": false, "defaultMenu": false, "icon": "dashboard", "title": "二级页面" }, "component": "Workplace", "redirect": ""},
+		//				{"name":"dashboard","parentId": 0,"id": 1,"meta": { "keepAlive": false, "defaultMenu": false, "icon": "dashboard", "title": "测试" }, "component": "RouteView", "redirect": "/dashboard/workplace"},
+		//				{
+		//				  "name": "sys",
+		//				  "parentId": 0,
+		//				  "id": 10035,
+		//				  "meta": {
+		//					"title": "系统管理",
+		//					"icon": "form",
+		//					"show": true
+		//				  },
+		//				  "redirect": "/sys/menu",
+		//				  "component": "RouteView"
+		//				},
+		//				{
+		//				  "name": "sysMenu",
+		//				  "parentId": 10035,
+		//				  "id": 10036,
+		//				  "meta": {
+		//					"title": "菜单管理",
+		//					"show": true
+		//				  },
+		//				  "component": "sysMenu"
+		//				}
+		//			]}`
+		//var jsonData map[string]interface{}
+		//if e := json.Unmarshal([]byte(roleObj), &jsonData); e != nil {
+		//	log.Fatalf("%s",e.Error())
+		//}
+		//fmt.Println(menus)
+		//fmt.Println(jsonData)
+		//response.OkWithDetailed(gin.H{
+		//	"menu" : jsonData,
+		//}, "设置成功", c)
 	}
 }
 
