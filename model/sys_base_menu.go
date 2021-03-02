@@ -8,6 +8,7 @@ type SysBaseMenu struct {
 	BaseModel
 	MenuLevel     uint   `json:"-"`
 	ParentId      int `json:"parentId" gorm:"comment:父菜单ID"`
+	Redirect      string `json:"redirect" gorm:"comment:跳转路由"`
 	Path          string `json:"path" gorm:"comment:路由path"`
 	Name          string `json:"name" gorm:"comment:路由name"`
 	Hidden        bool   `json:"hidden" gorm:"comment:是否在列表隐藏"`
@@ -24,7 +25,8 @@ type Meta struct {
 	DefaultMenu bool   `json:"defaultMenu" gorm:"comment:是否是基础路由（开发中）"`
 	Title       string `json:"title" gorm:"comment:菜单名"`
 	Icon        string `json:"icon" gorm:"comment:菜单图标"`
-  Show  bool   `json:"show" gorm:"comment:是否显示"`
+    Show  bool   `json:"show" gorm:"comment:是否显示"`
+	Target  string   `json:"target" gorm:"comment:跳转形式"`
 }
 
 type SysBaseMenuParameter struct {
