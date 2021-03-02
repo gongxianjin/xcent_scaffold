@@ -30,7 +30,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if lib.GetStringConf("base.base.debug_mode") == "debug" {
+	if lib.GetStringConf("base.base.debug_mode") == "debugX" {
 		initialize.MysqlTables(db)
 		initialize.InitMysqlData(db)
 	}
