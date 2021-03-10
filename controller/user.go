@@ -69,7 +69,7 @@ func (demo *UserController) ListPage(c *gin.Context) {
 
 	log.Printf("pageSize:%v,pageIndex:%v", pageSize, pageIndex)
 	var pageInfo request.PageInfo
-	pageInfo.Page = pageIndex
+	pageInfo.PageNo = pageIndex
 	pageInfo.PageSize = pageSize
 	if err, list, total := service.GetUserInfoList(pageInfo); err != nil {
 		response.FailWithMessage("获取失败", c)
@@ -82,8 +82,8 @@ func (demo *UserController) ListPage(c *gin.Context) {
 		// }, "获取成功", c)
 		m := response.PageResult{
 			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
+			TotalCount:    total,
+			PageNo:     pageInfo.PageNo,
 			PageSize: pageInfo.PageSize,
 		}
 		middleware.ResponseSuccess(c, m)

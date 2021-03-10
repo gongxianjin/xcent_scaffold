@@ -68,7 +68,7 @@ func ChangePassword(u *model.SysUser, newPassword string) (err error, userInter 
 
 func GetUserInfoList(info request.PageInfo) (err error, list interface{}, total int64) {
 	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+	offset := info.PageSize * (info.PageNo - 1)
 	db := lib.GORMDefaultPool.Model(&model.SysUser{})
 	var userList []model.SysUser
 	err = db.Count(&total).Error

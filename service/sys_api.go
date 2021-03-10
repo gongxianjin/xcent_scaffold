@@ -42,7 +42,7 @@ func DeleteApi(api model.SysApi) (err error) {
 
 func GetAPIInfoList(api model.SysApi, info request.PageInfo, order string, desc bool) (err error, list interface{}, total int64) {
 	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+	offset := info.PageSize * (info.PageNo - 1)
 	db :=  lib.GORMDefaultPool.Model(&model.SysApi{})
 	var apiList []model.SysApi
 

@@ -99,7 +99,7 @@ func DeleteAuthority(auth *model.SysAuthority) (err error) {
 
 func GetAuthorityInfoList(info request.PageInfo) (err error, list interface{}, total int64) {
 	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+	offset := info.PageSize * (info.PageNo - 1)
 	db := lib.GORMDefaultPool
 	var authority []model.SysAuthority
 	err = db.Limit(limit).Offset(offset).Preload("DataAuthorityId").Where("parent_id = 0").Find(&authority).Error

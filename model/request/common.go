@@ -2,7 +2,7 @@ package request
 
 // Paging common input parameter structure
 type PageInfo struct {
-	Page     int `json:"page" form:"page"`
+	PageNo     int `json:"pageNo" form:"pageNo"`
 	PageSize int `json:"pageSize" form:"pageSize"`
 }
 

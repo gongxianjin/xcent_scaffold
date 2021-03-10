@@ -60,7 +60,7 @@ func GetSysOperationRecord(id uint) (err error, sysOperationRecord model.SysOper
 
 func GetSysOperationRecordInfoList(info request.SysOperationRecordSearch) (err error, list interface{}, total int64) {
 	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+	offset := info.PageSize * (info.PageNo - 1)
 	// 创建db
 	db := lib.GORMDefaultPool.Model(&model.SysOperationRecord{})
 	var sysOperationRecords []model.SysOperationRecord

@@ -62,12 +62,13 @@ func getChildrenList(menu *model.SysMenu, treeMap map[string][]model.SysMenu) (e
 
 func GetInfoList() (err error, list interface{}, total int64) {
 	var menuList []model.SysBaseMenu
-	err, treeMap := getBaseMenuTreeMap()
-	menuList = treeMap["0"]
-	for i := 0; i < len(menuList); i++ {
-		err = getBaseChildrenList(&menuList[i], treeMap)
-	}
-	return err, menuList, total
+	//err, treeMap := getBaseMenuTreeMap()
+	//menuList = treeMap["0"]
+	//for i := 0; i < len(menuList); i++ {
+	//	err = getBaseChildrenList(&menuList[i], treeMap)
+	//}
+	err = lib.GORMDefaultPool.Order("sort").Preload("Parameters").Find(&menuList).Error
+	return err, menuList, 10
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)

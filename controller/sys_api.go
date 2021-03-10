@@ -82,8 +82,8 @@ func  (SysApi *SysApiController)GetApiList(c *gin.Context) {
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
+			TotalCount:    total,
+			PageNo:     pageInfo.PageNo,
 			PageSize: pageInfo.PageSize,
 		}, "获取成功", c)
 	}
