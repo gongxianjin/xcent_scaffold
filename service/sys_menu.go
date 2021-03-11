@@ -67,8 +67,10 @@ func GetInfoList() (err error, list interface{}, total int64) {
 	//for i := 0; i < len(menuList); i++ {
 	//	err = getBaseChildrenList(&menuList[i], treeMap)
 	//}
+	var count  int64
 	err = lib.GORMDefaultPool.Order("sort").Preload("Parameters").Find(&menuList).Error
-	return err, menuList, 10
+	lib.GORMDefaultPool.Find(&menuList).Count(&count)
+	return err, menuList,count
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
