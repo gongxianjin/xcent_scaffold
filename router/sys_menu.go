@@ -1,7 +1,7 @@
 package router
 
 import ( 
-	"github.com/gongxianjin/xcent_scaffold/controller"
+	"github.com/gongxianjin/xcent_scaffold/controller/v1"
 	"github.com/gongxianjin/xcent_scaffold/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -9,7 +9,7 @@ import (
 func InitMenuRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	MenuRouter := Router.Group("menu").Use(middleware.OperationRecord())
 	{
-		curd := controller.SysMenuController{} 
+		curd := v1.SysMenuController{} 
 		MenuRouter.POST("getMenu", curd.GetMenu)                   // 获取菜单树
 		MenuRouter.POST("getMenuList", curd.GetMenuList)           // 分页获取基础menu列表
 		MenuRouter.POST("addBaseMenu", curd.AddBaseMenu)           // 新增菜单

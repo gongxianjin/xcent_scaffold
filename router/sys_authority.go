@@ -2,12 +2,12 @@ package router
 
 import ( 
 	"github.com/gin-gonic/gin" 
-	"github.com/gongxianjin/xcent_scaffold/controller"
+	"github.com/gongxianjin/xcent_scaffold/controller/v1"
 	"github.com/gongxianjin/xcent_scaffold/middleware"
 )
 
 func InitAuthorityRouter(Router *gin.RouterGroup) {
-	curd := controller.SysAuthorityController{} 
+	curd := v1.SysAuthorityController{} 
 	AuthorityRouter := Router.Group("authority").Use(middleware.OperationRecord())
 	{
 		AuthorityRouter.POST("createAuthority", curd.CreateAuthority)   // 创建角色

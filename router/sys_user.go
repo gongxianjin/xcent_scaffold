@@ -2,13 +2,13 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gongxianjin/xcent_scaffold/controller"
+	"github.com/gongxianjin/xcent_scaffold/controller/v1"
 	"github.com/gongxianjin/xcent_scaffold/middleware"
 )
 
 func InitUserRouter(router *gin.RouterGroup) {
-	curd := controller.ApiController{}
-	user := controller.UserController{}
+	curd := v1.ApiController{}
+	user := v1.UserController{}
 	BaseRouter := router.Group("").Use(
 		middleware.RequestLog(),
 		middleware.TranslationMiddleware())
