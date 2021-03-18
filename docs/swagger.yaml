@@ -156,13 +156,17 @@ definitions:
           $ref: '#/definitions/model.SysBaseMenuParameter'
         type: array
       parentId:
-        type: string
+        type: integer
       path:
+        type: string
+      redirect:
         type: string
       show:
         type: boolean
       sort:
         type: integer
+      target:
+        type: string
       title:
         type: string
       updatedAt:
@@ -253,7 +257,7 @@ definitions:
     type: object
   request.PageInfo:
     properties:
-      page:
+      pageNo:
         type: integer
       pageSize:
         type: integer
@@ -287,7 +291,7 @@ definitions:
         type: string
       orderKey:
         type: string
-      page:
+      pageNo:
         type: integer
       pageSize:
         type: integer

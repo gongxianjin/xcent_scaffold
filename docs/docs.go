@@ -1558,9 +1558,12 @@ var doc = `{
                     }
                 },
                 "parentId": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "path": {
+                    "type": "string"
+                },
+                "redirect": {
                     "type": "string"
                 },
                 "show": {
@@ -1568,6 +1571,9 @@ var doc = `{
                 },
                 "sort": {
                     "type": "integer"
+                },
+                "target": {
+                    "type": "string"
                 },
                 "title": {
                     "type": "string"
@@ -1708,7 +1714,7 @@ var doc = `{
         "request.PageInfo": {
             "type": "object",
             "properties": {
-                "page": {
+                "pageNo": {
                     "type": "integer"
                 },
                 "pageSize": {
@@ -1760,7 +1766,7 @@ var doc = `{
                 "orderKey": {
                     "type": "string"
                 },
-                "page": {
+                "pageNo": {
                     "type": "integer"
                 },
                 "pageSize": {

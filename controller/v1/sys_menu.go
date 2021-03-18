@@ -238,13 +238,13 @@ func (SysMenu *SysMenuController)GetBaseMenuById(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /menu/getMenuList [post]
 func (SysMenu *SysMenuController)GetMenuList(c *gin.Context) {
-	var pageInfo request.PageInfo
+	var pageInfo request.SearchMenuParams
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err := utils.Verify(pageInfo, utils.PageInfoVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err, menuList, total := service.GetInfoList(); err != nil {
+	if err, menuList, total := service.GetInfoList(pageInfo.PageInfo,pageInfo.Id,pageInfo.Name); err != nil {
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("获取失败", c)
 	} else {

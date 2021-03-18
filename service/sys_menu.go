@@ -60,17 +60,27 @@ func getChildrenList(menu *model.SysMenu, treeMap map[string][]model.SysMenu) (e
 //@description: 获取路由分页
 //@return: err error, list interface{}, total int64
 
-func GetInfoList() (err error, list interface{}, total int64) {
+func GetInfoList(info request.PageInfo, id int, name string) (err error, list interface{}, total int64) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.PageNo - 1)
+	db :=  lib.GORMDefaultPool.Model(&model.SysBaseMenu{})
 	var menuList []model.SysBaseMenu
-	//err, treeMap := getBaseMenuTreeMap()
-	//menuList = treeMap["0"]
-	//for i := 0; i < len(menuList); i++ {
-	//	err = getBaseChildrenList(&menuList[i], treeMap)
-	//}
-	var count  int64
-	err = lib.GORMDefaultPool.Order("sort").Preload("Parameters").Find(&menuList).Error
-	lib.GORMDefaultPool.Find(&menuList).Count(&count)
-	return err, menuList,count
+
+	if name != "" {
+		db = db.Where("name LIKE ?", "%"+name+"%")
+	}
+	if id != 0 {
+		db = db.Where("id = ?", id)
+	}
+	err = db.Count(&total).Error
+	if err != nil {
+		return err, menuList, total
+	} else {
+		db = db.Limit(limit).Offset(offset)
+		err = db.Order("sort").Preload("Parameters").Find(&menuList).Error
+	}
+
+	return err, menuList, total
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
