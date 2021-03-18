@@ -234,7 +234,7 @@ func (SysMenu *SysMenuController)GetBaseMenuById(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.PageInfo true "页码, 每页大小"
+// @Param data body request.SearchMenuParams true "分页获取API列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /menu/getMenuList [post]
 func (SysMenu *SysMenuController)GetMenuList(c *gin.Context) {
