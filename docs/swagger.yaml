@@ -298,6 +298,17 @@ definitions:
       path:
         type: string
     type: object
+  request.SearchMenuParams:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      pageNo:
+        type: integer
+      pageSize:
+        type: integer
+    type: object
   request.SetUserAuth:
     properties:
       authorityId:
@@ -916,12 +927,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 页码, 每页大小
+      - description: 分页获取API列表
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.PageInfo'
+          $ref: '#/definitions/request.SearchMenuParams'
       produces:
       - application/json
       responses:

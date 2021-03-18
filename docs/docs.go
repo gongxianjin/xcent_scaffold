@@ -1027,12 +1027,12 @@ var doc = `{
                 "summary": "分页获取基础menu列表",
                 "parameters": [
                     {
-                        "description": "页码, 每页大小",
+                        "description": "分页获取API列表",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.PageInfo"
+                            "$ref": "#/definitions/request.SearchMenuParams"
                         }
                     }
                 ],
@@ -1774,6 +1774,23 @@ var doc = `{
                 },
                 "path": {
                     "type": "string"
+                }
+            }
+        },
+        "request.SearchMenuParams": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pageNo": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
                 }
             }
         },
