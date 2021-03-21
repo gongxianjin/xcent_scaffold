@@ -60,7 +60,7 @@ func getChildrenList(menu *model.SysMenu, treeMap map[string][]model.SysMenu) (e
 //@description: 获取路由分页
 //@return: err error, list interface{}, total int64
 
-func GetInfoList(info request.PageInfo, id int,parentId int, name string) (err error, list interface{}, total int64) {
+func GetInfoList(info request.PageInfo, id int,parentId string, name string) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNo - 1)
 	db :=  lib.GORMDefaultPool.Model(&model.SysBaseMenu{})
@@ -72,8 +72,8 @@ func GetInfoList(info request.PageInfo, id int,parentId int, name string) (err e
 	if id != 0 {
 		db = db.Where("id = ?", id)
 	}
-	if parentId != 0 {
-		db = db.Where("parentId = ?", parentId)
+	if parentId != "" {
+		db = db.Where("parent_id = ?", parentId)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

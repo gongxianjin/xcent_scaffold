@@ -13,6 +13,6 @@ type AddMenuAuthorityInfo struct {
 type SearchMenuParams struct {
 	PageInfo
 	Id  int `json:"id"`
-	ParentId int `json:"parentId"`
+	ParentId string `json:"parentId"`
 	Name     string   `json:"name"`
 }
