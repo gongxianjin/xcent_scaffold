@@ -244,7 +244,7 @@ func (SysMenu *SysMenuController)GetMenuList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err, menuList, total := service.GetInfoList(pageInfo.PageInfo,pageInfo.Id,pageInfo.Name); err != nil {
+	if err, menuList, total := service.GetInfoList(pageInfo.PageInfo,pageInfo.ParentId,pageInfo.Name); err != nil {
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("获取失败", c)
 	} else {

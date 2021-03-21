@@ -1791,6 +1791,9 @@ var doc = `{
                 },
                 "pageSize": {
                     "type": "integer"
+                },
+                "parentId": {
+                    "type": "integer"
                 }
             }
         },
