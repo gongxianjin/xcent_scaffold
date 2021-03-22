@@ -1542,7 +1542,7 @@
                     }
                 },
                 "parentId": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "path": {
                     "type": "string"
@@ -1777,7 +1777,7 @@
                     "type": "integer"
                 },
                 "parentId": {
-                    "type": "integer"
+                    "type": "string"
                 }
             }
         },

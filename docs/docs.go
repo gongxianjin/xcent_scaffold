@@ -1558,7 +1558,7 @@ var doc = `{
                     }
                 },
                 "parentId": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "path": {
                     "type": "string"
@@ -1793,7 +1793,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "parentId": {
-                    "type": "integer"
+                    "type": "string"
                 }
             }
         },

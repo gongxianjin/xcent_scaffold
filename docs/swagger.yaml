@@ -156,7 +156,7 @@ definitions:
           $ref: '#/definitions/model.SysBaseMenuParameter'
         type: array
       parentId:
-        type: integer
+        type: string
       path:
         type: string
       redirect:
@@ -309,7 +309,7 @@ definitions:
       pageSize:
         type: integer
       parentId:
-        type: integer
+        type: string
     type: object
   request.SetUserAuth:
     properties:
