@@ -3,7 +3,7 @@ package utils
 var (
 	IdVerify               = Rules{"ID": {NotEmpty()}}
 	ApiVerify              = Rules{"Path": {NotEmpty()}, "Description": {NotEmpty()}, "ApiGroup": {NotEmpty()}, "Method": {NotEmpty()}}
-	MenuVerify             = Rules{"Path": {NotEmpty()}, "ParentId": {NotEmpty()}, "Name": {NotEmpty()}, "Component": {NotEmpty()}, "Sort": {Ge("0")}}
+	MenuVerify             = Rules{"ParentId": {NotEmpty()}, "Name": {NotEmpty()}, "Component": {NotEmpty()}, "Sort": {Ge("0")}}
 	MenuMetaVerify         = Rules{"Title": {NotEmpty()}}
 	LoginVerify            = Rules{"CaptchaId": {NotEmpty()}, "Captcha": {NotEmpty()}, "Username": {NotEmpty()}, "Password": {NotEmpty()}}
 	SetUserVerify          = Rules{"ID": {NotEmpty()}, "Username": {NotEmpty()}, "NickName": {NotEmpty()}, "HeaderImg": {NotEmpty()}}
