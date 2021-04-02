@@ -183,3 +183,18 @@ func GetMenuAuthority(info *request.GetAuthorityId) (err error, menus []model.Sy
 	//err = lib.GORMDefaultPool.Raw(sql, authorityId).Scan(&menus).Error
 	return err, menus
 }
+ 
+
+//@author: [granty1](https://github.com/granty1)
+//@author: [piexlmax](https://github.com/piexlmax)
+//@function: BatchSetMenuStatusByIds
+//@description: 批量设置菜单状态
+//@param: ids request.IdsReq
+//@return: err error
+
+func BatchSetMenuStatusByIds(ids request.IdsReq,status bool) (err error) { 
+	err = lib.GORMDefaultPool.Model(&model.SysBaseMenu{}).Where("id in (?)", ids.Ids).Updates(map[string]interface{}{ 
+		"meta.show":status,
+	}).Error 
+	return err
+}

@@ -19,6 +19,7 @@ func InitMenuRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 		MenuRouter.POST("deleteBaseMenu", curd.DeleteBaseMenu)     // 删除菜单
 		MenuRouter.POST("updateBaseMenu", curd.UpdateBaseMenu)     // 更新菜单
 		MenuRouter.POST("getBaseMenuById", curd.GetBaseMenuById)   // 根据id获取菜单
+		MenuRouter.POST("batchSetMenuStatus", curd.BatchSetMenuStatus)     // 批量设置菜单
 	}
 	return MenuRouter
 }
