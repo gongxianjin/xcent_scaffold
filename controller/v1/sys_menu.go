@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -264,11 +265,11 @@ func (SysMenu *SysMenuController) GetMenuList(c *gin.Context) {
 // @Produce application/json
 // @Param data body request.IdsReq true "菜单ids"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
-// @Router /menu/batchSetMenuStatus [post]
-func (SysMenu *SysMenuController) BatchSetMenuStatus(c *gin.Context) {
+// @Router /menu/batchSetMenuStatus [put]
+func (SysMenu *SysMenuController) BatchSetMenuStatus(c *gin.Context) { 
 	var IDS request.IdsReq
-	_ = c.ShouldBindJSON(&IDS)
-	if err := service.BatchSetMenuStatusByIds(IDS,false); err != nil { 
+	_ = c.ShouldBindJSON(&IDS) 
+	if err := service.BatchSetMenuStatusByIds(IDS,0); err != nil { 
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("批量设置失败", c)
 	} else {
