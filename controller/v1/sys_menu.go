@@ -262,13 +262,13 @@ func (SysMenu *SysMenuController) GetMenuList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.BatchSetMenuParams  true "设置ids和状态"
+// @Param data body request.IdsReq true "菜单ids"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /menu/batchSetMenuStatus [put]
 func (SysMenu *SysMenuController) BatchSetMenuStatus(c *gin.Context) { 
-	var setData request.BatchSetMenuParams
-	_ = c.ShouldBindJSON(&setData)
-	if err := service.BatchSetMenuStatusByIds(setData); err != nil { 
+	var IDS request.IdsReq
+	_ = c.ShouldBindJSON(&IDS) 
+	if err := service.BatchSetMenuStatusByIds(IDS,0); err != nil { 
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("批量设置失败", c)
 	} else {
