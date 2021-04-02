@@ -268,7 +268,7 @@ func (SysMenu *SysMenuController) GetMenuList(c *gin.Context) {
 func (SysMenu *SysMenuController) BatchSetMenuStatus(c *gin.Context) { 
 	var IDS request.IdsReq
 	_ = c.ShouldBindJSON(&IDS) 
-	if err := service.BatchSetMenuStatusByIds(IDS,0); err != nil { 
+	if err := service.BatchSetMenuStatusByIds(IDS,1); err != nil { 
 		log.Printf("获取失败!:%v", err)
 		response.FailWithMessage("批量设置失败", c)
 	} else {
