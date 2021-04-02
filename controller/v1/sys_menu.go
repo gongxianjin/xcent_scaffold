@@ -1,7 +1,6 @@
 package v1
 
-import (
-	"fmt"
+import ( 
 	"log"
 
 	"github.com/gin-gonic/gin"
