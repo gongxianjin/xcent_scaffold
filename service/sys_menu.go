@@ -192,7 +192,7 @@ func GetMenuAuthority(info *request.GetAuthorityId) (err error, menus []model.Sy
 //@param: ids request.IdsReq
 //@return: err error
 
-func BatchSetMenuStatusByIds(ids request.IdsReq,status int) (err error) { 
+func BatchSetMenuStatusByIds(ids request.IdsReq,status bool) (err error) { 
 	err = lib.GORMDefaultPool.Table("sys_base_menu").Model(&model.Meta{}).Where("id in (?)", ids.Ids).Updates(map[string]interface{}{ 
 		"show":status,
 	}).Error 
