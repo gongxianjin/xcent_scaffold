@@ -218,6 +218,15 @@ definitions:
           $ref: '#/definitions/model.SysBaseMenu'
         type: array
     type: object
+  request.BatchSetMenuParams:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+      show:
+        type: integer
+    type: object
   request.CasbinInReceive:
     properties:
       authorityId:
@@ -254,13 +263,6 @@ definitions:
     properties:
       id:
         type: number
-    type: object
-  request.IdsReq:
-    properties:
-      ids:
-        items:
-          type: integer
-        type: array
     type: object
   request.PageInfo:
     properties:
@@ -825,12 +827,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 菜单ids
+      - description: 设置ids和状态
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.IdsReq'
+          $ref: '#/definitions/request.BatchSetMenuParams'
       produces:
       - application/json
       responses:

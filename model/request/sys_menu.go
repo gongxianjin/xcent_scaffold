@@ -16,3 +16,8 @@ type SearchMenuParams struct {
 	ParentId string `json:"parentId"`
 	Name     string   `json:"name"`
 }
+
+type BatchSetMenuParams struct { 
+	Ids []int `json:"ids" form:"ids"` 
+	Show     int   `json:"show"`
+}

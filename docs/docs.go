@@ -843,12 +843,12 @@ var doc = `{
                 "summary": "批量更改菜单状态",
                 "parameters": [
                     {
-                        "description": "菜单ids",
+                        "description": "设置ids和状态",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
+                            "$ref": "#/definitions/request.BatchSetMenuParams"
                         }
                     }
                 ],
@@ -1691,6 +1691,20 @@ var doc = `{
                 }
             }
         },
+        "request.BatchSetMenuParams": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "show": {
+                    "type": "integer"
+                }
+            }
+        },
         "request.CasbinInReceive": {
             "type": "object",
             "properties": {
@@ -1746,17 +1760,6 @@ var doc = `{
             "properties": {
                 "id": {
                     "type": "number"
-                }
-            }
-        },
-        "request.IdsReq": {
-            "type": "object",
-            "properties": {
-                "ids": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
                 }
             }
         },
